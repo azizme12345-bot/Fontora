@@ -14,7 +14,7 @@
 export const SEO_CONFIG = {
   // Replace 'YOUR_GOOGLE_VERIFICATION_CODE_HERE' with your actual GSC token
   // Example: 'v-123456789abcdefghijklmnopqrstuvwxyz'
-  googleSiteVerificationCode: 'YOUR_GOOGLE_VERIFICATION_CODE_HERE',
+  googleSiteVerificationCode: 'e2RrqWDlKxHOPt0hT0SbW2dvhjsUgITfsuQwy6ZZhjY',
 
   // Your production Vercel domain
   siteUrl: 'https://all-fonts.vercel.app',
