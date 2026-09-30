@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://all-fonts.vercel.app/sitemap.xml
