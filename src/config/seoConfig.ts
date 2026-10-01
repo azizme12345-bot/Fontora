@@ -17,7 +17,7 @@ export const SEO_CONFIG = {
   googleSiteVerificationCode: 'e2RrqWDlKxHOPt0hT0SbW2dvhjsUgITfsuQwy6ZZhjY',
 
   // Your production Vercel domain
-  siteUrl: 'https://all-fonts.vercel.app',
+  siteUrl: 'https://fontora-ten.vercel.app',
 
   // Metadata
   siteName: 'Fontora - Multilingual Font Platform',

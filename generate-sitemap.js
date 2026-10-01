@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { FONTS_DATA } from './src/data/fonts.ts';
 
-const baseUrl = 'https://all-fonts.vercel.app';
+const baseUrl = 'https://fontora-ten.vercel.app';
 
 let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
 xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
