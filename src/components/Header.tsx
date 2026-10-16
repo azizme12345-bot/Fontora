@@ -27,9 +27,14 @@ export function Header({
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-neutral-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo */}
-        <div 
-          onClick={() => handleNav('home')} 
+        <a 
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            handleNav('home');
+          }}
           className="flex items-center gap-3 cursor-pointer group"
+          aria-label="Fontora Home"
         >
           <div className="w-10 h-10 rounded-xl bg-neutral-900 text-white flex items-center justify-center font-bold text-xl shadow-md group-hover:bg-indigo-600 transition-colors">
             F
@@ -42,30 +47,46 @@ export function Header({
               Typography Platform
             </span>
           </div>
-        </div>
+        </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 font-medium text-sm text-neutral-600">
-          <button 
-            onClick={() => handleNav('home')}
+        {/* Desktop Navigation with Crawlable Anchors */}
+        <nav className="hidden md:flex items-center gap-6 font-medium text-sm text-neutral-600" aria-label="Main Navigation">
+          <a 
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNav('home');
+            }}
             className={`transition-colors hover:text-indigo-600 ${currentRoute === 'home' ? 'text-indigo-600 font-semibold' : ''}`}
           >
             Home
-          </button>
-          <button 
-            onClick={() => handleNav('fonts')}
+          </a>
+          <a 
+            href="/fonts"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNav('fonts');
+            }}
             className={`transition-colors hover:text-indigo-600 ${currentRoute === 'fonts' ? 'text-indigo-600 font-semibold' : ''}`}
           >
             Fonts
-          </button>
-          <button 
-            onClick={() => handleNav('categories')}
+          </a>
+          <a 
+            href="/categories"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNav('categories');
+            }}
             className={`transition-colors hover:text-indigo-600 ${currentRoute === 'categories' ? 'text-indigo-600 font-semibold' : ''}`}
           >
             Categories
-          </button>
-          <button 
-            onClick={() => handleNav('favorites')}
+          </a>
+          <a 
+            href="/favorites"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNav('favorites');
+            }}
             className={`transition-colors hover:text-indigo-600 flex items-center gap-1.5 ${currentRoute === 'favorites' ? 'text-indigo-600 font-semibold' : ''}`}
           >
             <Heart className={`w-4 h-4 ${favoritesCount > 0 ? 'fill-rose-500 text-rose-500' : ''}`} />
@@ -75,21 +96,25 @@ export function Header({
                 {favoritesCount}
               </span>
             )}
-          </button>
-          <button 
-            onClick={() => handleNav('about')}
+          </a>
+          <a 
+            href="/about"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNav('about');
+            }}
             className={`transition-colors hover:text-indigo-600 ${currentRoute === 'about' ? 'text-indigo-600 font-semibold' : ''}`}
           >
-            About
-          </button>
+            About & License
+          </a>
         </nav>
 
         {/* Actions */}
         <div className="flex items-center gap-2.5">
           <button
             onClick={onOpenPublisherConsole}
-            className="hidden lg:flex items-center gap-1.5 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-xs font-semibold transition-colors border border-indigo-200 shadow-2xs"
-            title="Publisher & Google Search Console Console"
+            className="hidden lg:flex items-center gap-1.5 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-xs font-semibold transition-colors border border-indigo-200 shadow-2xs cursor-pointer"
+            title="Search Console & Sitemap Assistant"
           >
             <Globe className="w-3.5 h-3.5" />
             <span>Search Console</span>
@@ -97,8 +122,8 @@ export function Header({
 
           <button
             onClick={onOpenSearch}
-            className="flex items-center gap-2 px-3.5 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-600 rounded-xl text-sm font-medium transition-colors border border-neutral-200/80 shadow-2xs"
-            title="Search fonts"
+            className="flex items-center gap-2 px-3.5 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-600 rounded-xl text-sm font-medium transition-colors border border-neutral-200/80 shadow-2xs cursor-pointer"
+            title="Search fonts (Cmd+K)"
           >
             <Search className="w-4 h-4 text-neutral-500" />
             <span className="hidden sm:inline text-neutral-400">Search fonts...</span>
@@ -107,8 +132,12 @@ export function Header({
             </kbd>
           </button>
 
-          <button
-            onClick={() => handleNav('favorites')}
+          <a
+            href="/favorites"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNav('favorites');
+            }}
             className="md:hidden relative p-2.5 text-neutral-700 hover:bg-neutral-100 rounded-xl transition-colors"
             aria-label="Favorites"
           >
@@ -118,11 +147,11 @@ export function Header({
                 {favoritesCount}
               </span>
             )}
-          </button>
+          </a>
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2.5 text-neutral-700 hover:bg-neutral-100 rounded-xl transition-colors"
+            className="md:hidden p-2.5 text-neutral-700 hover:bg-neutral-100 rounded-xl transition-colors cursor-pointer"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -133,26 +162,42 @@ export function Header({
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-neutral-200 px-4 pt-2 pb-6 space-y-2 shadow-xl animate-in slide-in-from-top duration-200">
-          <button
-            onClick={() => handleNav('home')}
-            className={`w-full text-left px-4 py-3 rounded-xl font-medium text-base transition-colors ${currentRoute === 'home' ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-neutral-700 hover:bg-neutral-50'}`}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNav('home');
+            }}
+            className={`block w-full text-left px-4 py-3 rounded-xl font-medium text-base transition-colors ${currentRoute === 'home' ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-neutral-700 hover:bg-neutral-50'}`}
           >
             Home
-          </button>
-          <button
-            onClick={() => handleNav('fonts')}
-            className={`w-full text-left px-4 py-3 rounded-xl font-medium text-base transition-colors ${currentRoute === 'fonts' ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-neutral-700 hover:bg-neutral-50'}`}
+          </a>
+          <a
+            href="/fonts"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNav('fonts');
+            }}
+            className={`block w-full text-left px-4 py-3 rounded-xl font-medium text-base transition-colors ${currentRoute === 'fonts' ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-neutral-700 hover:bg-neutral-50'}`}
           >
             Browse Fonts
-          </button>
-          <button
-            onClick={() => handleNav('categories')}
-            className={`w-full text-left px-4 py-3 rounded-xl font-medium text-base transition-colors ${currentRoute === 'categories' ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-neutral-700 hover:bg-neutral-50'}`}
+          </a>
+          <a
+            href="/categories"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNav('categories');
+            }}
+            className={`block w-full text-left px-4 py-3 rounded-xl font-medium text-base transition-colors ${currentRoute === 'categories' ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-neutral-700 hover:bg-neutral-50'}`}
           >
             Categories
-          </button>
-          <button
-            onClick={() => handleNav('favorites')}
+          </a>
+          <a
+            href="/favorites"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNav('favorites');
+            }}
             className={`w-full text-left px-4 py-3 rounded-xl font-medium text-base transition-colors flex items-center justify-between ${currentRoute === 'favorites' ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-neutral-700 hover:bg-neutral-50'}`}
           >
             <span>Favorites</span>
@@ -161,23 +206,17 @@ export function Header({
                 {favoritesCount} saved
               </span>
             )}
-          </button>
-          <button
-            onClick={() => handleNav('about')}
-            className={`w-full text-left px-4 py-3 rounded-xl font-medium text-base transition-colors ${currentRoute === 'about' ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-neutral-700 hover:bg-neutral-50'}`}
+          </a>
+          <a
+            href="/about"
+            onClick={(e) => {
+              e.preventDefault();
+              handleNav('about');
+            }}
+            className={`block w-full text-left px-4 py-3 rounded-xl font-medium text-base transition-colors ${currentRoute === 'about' ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-neutral-700 hover:bg-neutral-50'}`}
           >
             About & Licenses
-          </button>
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onOpenPublisherConsole();
-            }}
-            className="w-full text-left px-4 py-3 rounded-xl font-medium text-base bg-indigo-50 text-indigo-700 flex items-center gap-2"
-          >
-            <Globe className="w-4 h-4" />
-            <span>Search Console & Indexing</span>
-          </button>
+          </a>
         </div>
       )}
     </header>

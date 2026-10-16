@@ -98,7 +98,7 @@ export function PublisherIndexingModal({ isOpen, onClose }: PublisherIndexingMod
               <span>1. Google Search Console Ownership Verification</span>
             </div>
             <p className="text-xs text-neutral-600 leading-relaxed">
-              To verify your ownership in Google Search Console, paste your Google verification code or full meta tag below. Once saved, it will be injected into your HTML head for instant verification.
+              Google Search Console verifies site ownership directly from server responses. Fontora includes a pre-configured server verification tag in <code className="bg-white px-1 py-0.5 rounded border border-neutral-200 font-mono text-[11px]">index.html</code> and <code className="bg-white px-1 py-0.5 rounded border border-neutral-200 font-mono text-[11px]">src/config/seoConfig.ts</code>. You can also test and preview your verification code locally below.
             </p>
 
             <form onSubmit={handleSave} className="space-y-3">

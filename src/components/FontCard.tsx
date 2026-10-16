@@ -45,13 +45,22 @@ export function FontCard({
             </span>
           </div>
           <h3 className="font-bold text-neutral-900 group-hover:text-indigo-600 transition-colors text-lg">
-            {font.name}
+            <a
+              href={`/fonts/${font.slug}`}
+              onClick={(e) => {
+                e.preventDefault();
+                onSelectFont(font);
+              }}
+              className="hover:underline"
+            >
+              {font.name}
+            </a>
           </h3>
         </div>
 
         <button
           onClick={(e) => onToggleFavorite(font.id, e)}
-          className={`p-2 rounded-xl transition-all ${
+          className={`p-2 rounded-xl transition-all cursor-pointer ${
             isFavorite
               ? 'bg-rose-50 text-rose-500 scale-105'
               : 'bg-white text-neutral-400 hover:text-rose-500 hover:bg-rose-50 border border-neutral-200'
@@ -80,8 +89,10 @@ export function FontCard({
 
       {/* Card Footer */}
       <div className="p-4 bg-white flex items-center justify-between gap-3">
-        <button
+        <a
+          href={`/fonts/${font.slug}`}
           onClick={(e) => {
+            e.preventDefault();
             e.stopPropagation();
             onSelectFont(font);
           }}
@@ -89,11 +100,11 @@ export function FontCard({
         >
           <span>Preview & Details</span>
           <ArrowRight className="w-3.5 h-3.5" />
-        </button>
+        </a>
 
         <button
           onClick={handleDownloadClick}
-          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all shadow-2xs ${
+          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all shadow-2xs cursor-pointer ${
             downloaded
               ? 'bg-emerald-600 text-white'
               : 'bg-neutral-900 hover:bg-indigo-600 text-white'

@@ -12,10 +12,83 @@ import { FontDetailView } from './views/FontDetailView';
 import { AboutView } from './views/AboutView';
 import { downloadFontFile } from './utils/downloadFont';
 
+function parseRouteFromUrl(): { route: string; font: Font | null; params?: { language?: string; category?: string } } {
+  if (typeof window === 'undefined') {
+    return { route: 'home', font: null };
+  }
+  const path = window.location.pathname.replace(/\/+$/, '') || '/';
+
+  if (path === '' || path === '/' || path === '/home') {
+    return { route: 'home', font: null };
+  }
+  if (path === '/fonts') {
+    return { route: 'fonts', font: null };
+  }
+  if (path.startsWith('/fonts/')) {
+    const slug = path.replace('/fonts/', '');
+    const found = FONTS_DATA.find((f) => f.slug === slug || f.id === slug);
+    if (found) {
+      return { route: 'font-detail', font: found };
+    }
+    return { route: 'fonts', font: null };
+  }
+  if (path === '/categories') {
+    return { route: 'categories', font: null };
+  }
+  if (path === '/favorites') {
+    return { route: 'favorites', font: null };
+  }
+  if (path === '/about') {
+    return { route: 'about', font: null };
+  }
+  return { route: 'home', font: null };
+}
+
+function updateMetadata(route: string, font: Font | null) {
+  if (typeof document === 'undefined') return;
+  const baseUrl = 'https://fontora-ten.vercel.app';
+  let title = 'Fontora - Multilingual Font Platform & Typography Preview';
+  let desc = 'Discover, preview, and download stunning Urdu, Arabic, Hindi, English, and Roman Urdu fonts with live typography customization.';
+  let canonical = baseUrl + '/';
+
+  if (route === 'font-detail' && font) {
+    title = `${font.name} - Free Download & Live Preview | Fontora`;
+    desc = `${font.description} Free download ${font.name} in ${font.fontFormat} format with interactive multi-script preview.`;
+    canonical = `${baseUrl}/fonts/${font.slug}`;
+  } else if (route === 'fonts') {
+    title = 'Browse All Fonts - Urdu, Arabic, Hindi & English Typefaces | Fontora';
+    desc = 'Explore 140+ premium Urdu, Arabic, Hindi, English, and Roman Urdu fonts with live multi-lingual preview and free downloads.';
+    canonical = `${baseUrl}/fonts`;
+  } else if (route === 'categories') {
+    title = 'Font Categories - Nastaleeq, Naskh, Calligraphy & Display | Fontora';
+    desc = 'Browse fonts by category: Nastaleeq, Naskh, Calligraphy, Serif, Sans-Serif, Handwriting, and Modern Display typography.';
+    canonical = `${baseUrl}/categories`;
+  } else if (route === 'favorites') {
+    title = 'My Saved Fonts - Fontora Collection';
+    desc = 'View and test your saved collection of favorite Urdu, Arabic, and English typefaces.';
+    canonical = `${baseUrl}/favorites`;
+  } else if (route === 'about') {
+    title = 'About Fontora & Font Licensing Policy';
+    desc = 'Learn about the Fontora multilingual typography platform, open-source font licenses, and our commitment to privacy.';
+    canonical = `${baseUrl}/about`;
+  }
+
+  document.title = title;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', desc);
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute('content', title);
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc) ogDesc.setAttribute('content', desc);
+  const canonicalTag = document.querySelector('link[rel="canonical"]');
+  if (canonicalTag) canonicalTag.setAttribute('href', canonical);
+}
+
 export default function App() {
-  const [currentRoute, setCurrentRoute] = useState<string>('home');
-  const [routeParams, setRouteParams] = useState<{ language?: string; category?: string }>({});
-  const [selectedFont, setSelectedFont] = useState<Font | null>(null);
+  const initial = parseRouteFromUrl();
+  const [currentRoute, setCurrentRoute] = useState<string>(initial.route);
+  const [routeParams, setRouteParams] = useState<{ language?: string; category?: string }>(initial.params || {});
+  const [selectedFont, setSelectedFont] = useState<Font | null>(initial.font);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isPublisherModalOpen, setIsPublisherModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -30,23 +103,22 @@ export default function App() {
     }
   });
 
-  // Load saved Google Search Console verification on startup
+  // Handle URL changes & browser history back/forward
   useEffect(() => {
-    try {
-      const savedGSC = localStorage.getItem('fontora_gsc_verification');
-      if (savedGSC) {
-        let metaTag = document.querySelector('meta[name="google-site-verification"]');
-        if (!metaTag) {
-          metaTag = document.createElement('meta');
-          metaTag.setAttribute('name', 'google-site-verification');
-          document.head.appendChild(metaTag);
-        }
-        metaTag.setAttribute('content', savedGSC);
-      }
-    } catch {
-      // ignore
-    }
+    const handlePopState = () => {
+      const parsed = parseRouteFromUrl();
+      setCurrentRoute(parsed.route);
+      setSelectedFont(parsed.font);
+      setRouteParams(parsed.params || {});
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  // Update dynamic document title, description, and canonical URL
+  useEffect(() => {
+    updateMetadata(currentRoute, selectedFont);
+  }, [currentRoute, selectedFont]);
 
   useEffect(() => {
     try {
@@ -70,10 +142,15 @@ export default function App() {
 
   const navigate = (route: string, params?: { language?: string; category?: string }) => {
     setCurrentRoute(route);
+    setSelectedFont(null);
     if (params) {
       setRouteParams(params);
     } else {
       setRouteParams({});
+    }
+    const path = route === 'home' ? '/' : `/${route}`;
+    if (window.location.pathname !== path) {
+      window.history.pushState({}, '', path);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -81,6 +158,10 @@ export default function App() {
   const handleSelectFont = (font: Font) => {
     setSelectedFont(font);
     setCurrentRoute('font-detail');
+    const path = `/fonts/${font.slug}`;
+    if (window.location.pathname !== path) {
+      window.history.pushState({}, '', path);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

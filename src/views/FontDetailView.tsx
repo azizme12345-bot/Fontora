@@ -209,10 +209,25 @@ export function FontDetailView({
               {customText || font.previewText}
             </div>
           </div>
+
+          {/* License & Usage Clarification Notice */}
+          <div className="bg-neutral-50 rounded-2xl p-4 sm:p-5 border border-neutral-200 text-xs text-neutral-600 flex items-start gap-3">
+            <ShieldCheck className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <span className="font-bold text-neutral-900">License Information: {font.license}</span>
+              <p className="text-neutral-600 leading-relaxed">
+                {font.license.toLowerCase().includes('sil open font license') ||
+                font.license.toLowerCase().includes('apache') ||
+                font.license.toLowerCase().includes('ubuntu')
+                  ? 'This typeface is cataloged under a verified open-source font license allowing personal and commercial use.'
+                  : 'This typeface is provided for free personal and general evaluation. For corporate trademarks or large commercial distributions, please verify terms with the original designer or foundry.'}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Ad Placeholder */}
+      {/* Typography Guide Banner */}
       <AdPlaceholder size="banner" />
 
       {/* Related Fonts */}

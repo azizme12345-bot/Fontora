@@ -1,7 +1,7 @@
 import { Sparkles, Heart } from 'lucide-react';
 
 interface FooterProps {
-  navigate: (route: string) => void;
+  navigate: (route: string, params?: any) => void;
 }
 
 export function Footer({ navigate }: FooterProps) {
@@ -11,19 +11,26 @@ export function Footer({ navigate }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           {/* Brand info */}
           <div className="space-y-4 md:col-span-1">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-md">
+            <a 
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('home');
+              }}
+              className="flex items-center gap-3 group"
+            >
+              <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-md group-hover:bg-indigo-500 transition-colors">
                 F
               </div>
               <span className="font-bold text-xl text-white tracking-tight flex items-center gap-1.5">
                 Fontora <Sparkles className="w-4 h-4 text-indigo-400" />
               </span>
-            </div>
+            </a>
             <p className="text-sm text-neutral-400 leading-relaxed">
               The premier typography discovery and download platform for Urdu, Arabic, Hindi, English, and Roman Urdu creators.
             </p>
             <div className="text-xs text-neutral-500">
-              © {new Date().getFullYear()} Fontora Inc. All rights reserved.
+              © {new Date().getFullYear()} Fontora. All rights reserved.
             </div>
           </div>
 
@@ -32,24 +39,40 @@ export function Footer({ navigate }: FooterProps) {
             <h3 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Discovery</h3>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <button onClick={() => navigate('home')} className="hover:text-white transition-colors">
+                <a 
+                  href="/" 
+                  onClick={(e) => { e.preventDefault(); navigate('home'); }} 
+                  className="hover:text-white transition-colors"
+                >
                   Featured Fonts
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => navigate('fonts')} className="hover:text-white transition-colors">
+                <a 
+                  href="/fonts" 
+                  onClick={(e) => { e.preventDefault(); navigate('fonts'); }} 
+                  className="hover:text-white transition-colors"
+                >
                   All Font Library
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => navigate('categories')} className="hover:text-white transition-colors">
+                <a 
+                  href="/categories" 
+                  onClick={(e) => { e.preventDefault(); navigate('categories'); }} 
+                  className="hover:text-white transition-colors"
+                >
                   Categories
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => navigate('favorites')} className="hover:text-white transition-colors">
-                  My Favorites
-                </button>
+                <a 
+                  href="/favorites" 
+                  onClick={(e) => { e.preventDefault(); navigate('favorites'); }} 
+                  className="hover:text-white transition-colors"
+                >
+                  My Saved Fonts
+                </a>
               </li>
             </ul>
           </div>
@@ -59,56 +82,83 @@ export function Footer({ navigate }: FooterProps) {
             <h3 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Languages</h3>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <button onClick={() => navigate('fonts')} className="hover:text-white transition-colors">
+                <a 
+                  href="/fonts" 
+                  onClick={(e) => { e.preventDefault(); navigate('fonts', { language: 'Urdu' }); }} 
+                  className="hover:text-white transition-colors"
+                >
                   Urdu Fonts (Nastaleeq & Naskh)
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => navigate('fonts')} className="hover:text-white transition-colors">
+                <a 
+                  href="/fonts" 
+                  onClick={(e) => { e.preventDefault(); navigate('fonts', { language: 'Arabic' }); }} 
+                  className="hover:text-white transition-colors"
+                >
                   Arabic Calligraphy & Modern
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => navigate('fonts')} className="hover:text-white transition-colors">
+                <a 
+                  href="/fonts" 
+                  onClick={(e) => { e.preventDefault(); navigate('fonts', { language: 'Hindi' }); }} 
+                  className="hover:text-white transition-colors"
+                >
                   Hindi Devanagari Fonts
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => navigate('fonts')} className="hover:text-white transition-colors">
+                <a 
+                  href="/fonts" 
+                  onClick={(e) => { e.preventDefault(); navigate('fonts', { language: 'English' }); }} 
+                  className="hover:text-white transition-colors"
+                >
                   English Serif & Sans
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => navigate('fonts')} className="hover:text-white transition-colors">
+                <a 
+                  href="/fonts" 
+                  onClick={(e) => { e.preventDefault(); navigate('fonts', { language: 'Roman Urdu' }); }} 
+                  className="hover:text-white transition-colors"
+                >
                   Roman Urdu Typography
-                </button>
+                </a>
               </li>
             </ul>
           </div>
 
           {/* Legal & Licensing */}
           <div>
-            <h3 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Legal & License</h3>
+            <h3 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Legal & Information</h3>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <button onClick={() => navigate('about')} className="hover:text-white transition-colors">
-                  SIL Open Font License
-                </button>
+                <a 
+                  href="/about" 
+                  onClick={(e) => { e.preventDefault(); navigate('about'); }} 
+                  className="hover:text-white transition-colors"
+                >
+                  Font Licensing Policy
+                </a>
               </li>
               <li>
-                <button onClick={() => navigate('about')} className="hover:text-white transition-colors">
-                  Privacy Policy
-                </button>
+                <a 
+                  href="/about" 
+                  onClick={(e) => { e.preventDefault(); navigate('about'); }} 
+                  className="hover:text-white transition-colors"
+                >
+                  Privacy Policy & Data Handling
+                </a>
               </li>
               <li>
-                <button onClick={() => navigate('about')} className="hover:text-white transition-colors">
-                  Terms of Service
-                </button>
-              </li>
-              <li>
-                <button onClick={() => navigate('about')} className="hover:text-white transition-colors">
-                  DMCA & Copyright
-                </button>
+                <a 
+                  href="/about" 
+                  onClick={(e) => { e.preventDefault(); navigate('about'); }} 
+                  className="hover:text-white transition-colors"
+                >
+                  Copyright & Attributions
+                </a>
               </li>
             </ul>
           </div>
@@ -116,10 +166,10 @@ export function Footer({ navigate }: FooterProps) {
 
         <div className="border-t border-neutral-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-500 gap-4">
           <p>
-            Built with precision for designers, publishers, and developers worldwide.
+            Typography discovery and previewing platform for Urdu, Arabic, Hindi, English, and Roman Urdu.
           </p>
           <p className="flex items-center gap-1">
-            Crafted with <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" /> by Fontora Engineering
+            Built with <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" /> for global designers and publishers
           </p>
         </div>
       </div>
