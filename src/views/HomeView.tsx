@@ -3,6 +3,7 @@ import { Font, LANGUAGES, CATEGORIES_BY_LANGUAGE } from '../data/fonts';
 import { FontCard } from '../components/FontCard';
 import { LivePreviewTool } from '../components/LivePreviewTool';
 import { AdPlaceholder } from '../components/AdPlaceholder';
+import { SeoHelpfulContent } from '../components/SeoHelpfulContent';
 import { Search, Sparkles, ArrowRight, Download, Globe, ShieldCheck, Zap } from 'lucide-react';
 
 interface HomeViewProps {
@@ -60,123 +61,56 @@ export function HomeView({
                 className="flex items-center gap-3 bg-white border border-neutral-300 hover:border-indigo-400 p-3.5 sm:p-4 rounded-2xl shadow-lg cursor-pointer transition-all group"
               >
                 <Search className="w-5 h-5 text-neutral-400 group-hover:text-indigo-600 transition-colors ml-2" />
-                <span className="flex-1 text-left text-neutral-400 text-base font-medium">
-                  Search fonts by name, language or style (e.g., Nastaleeq, Arabic)...
+                <span className="text-neutral-400 text-sm sm:text-base flex-1 text-left">
+                  Search across 140+ Urdu, Arabic, Hindi, & English fonts...
                 </span>
-                <span className="hidden sm:inline px-3 py-1 bg-neutral-100 group-hover:bg-indigo-50 group-hover:text-indigo-700 text-neutral-600 text-xs font-semibold rounded-xl transition-colors border border-neutral-200">
-                  Search ⌘K
-                </span>
+                <kbd className="hidden sm:inline-block px-2.5 py-1 bg-neutral-100 text-neutral-500 text-xs rounded-lg border border-neutral-200 font-mono">
+                  ⌘K
+                </kbd>
               </div>
             </div>
 
-            {/* Language Filter Buttons */}
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-2">
-              <button
-                onClick={() => setSelectedLanguage('All')}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                  selectedLanguage === 'All'
-                    ? 'bg-neutral-900 text-white shadow-md'
-                    : 'bg-white text-neutral-700 border border-neutral-200 hover:bg-neutral-100'
-                }`}
-              >
-                All Languages
-              </button>
-              {LANGUAGES.map((lang) => (
+            {/* Quick Language Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+              <span className="text-xs text-neutral-500 font-medium mr-1">Popular Scripts:</span>
+              {['All', 'Urdu', 'Arabic', 'Hindi', 'English', 'Roman Urdu'].map((lang) => (
                 <button
                   key={lang}
-                  onClick={() => setSelectedLanguage(lang)}
-                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
-                    selectedLanguage === lang
-                      ? 'bg-indigo-600 text-white shadow-md'
-                      : 'bg-white text-neutral-700 border border-neutral-200 hover:bg-neutral-100'
-                  }`}
+                  onClick={() => {
+                    setSelectedLanguage(lang);
+                    if (lang !== 'All') navigate('fonts', { language: lang });
+                  }}
+                  className="px-3 py-1 bg-white hover:bg-neutral-100 text-neutral-700 text-xs font-semibold rounded-xl border border-neutral-200 shadow-2xs transition-all cursor-pointer"
                 >
                   {lang}
                 </button>
               ))}
             </div>
           </div>
-
-          {/* Typography Visual Banner */}
-          <div className="mt-16 bg-neutral-900 text-white rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
-            <div className="absolute -right-12 -bottom-12 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative z-10">
-              <div className="space-y-4">
-                <span className="px-3 py-1 bg-indigo-500/20 text-indigo-300 text-xs font-semibold rounded-full border border-indigo-500/30">
-                  Featured Showcase
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-bold">
-                  Typography Crafted for Multilingual Excellence
-                </h2>
-                <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
-                  Every font in our directory is verified for digital screens, licensing clarity, and high-performance rendering.
-                </p>
-                <div className="pt-2 flex items-center gap-4">
-                  <button
-                    onClick={() => navigate('fonts')}
-                    className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl text-sm transition-colors flex items-center gap-2 shadow-lg"
-                  >
-                    <span>Explore All Fonts</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Sample Preview Grid */}
-              <div className="grid grid-cols-1 gap-3">
-                <div 
-                  onClick={() => onSelectFont(fonts[0])}
-                  className="bg-neutral-800/80 backdrop-blur-md p-4 rounded-2xl border border-neutral-700 cursor-pointer hover:border-indigo-500 transition-all"
-                >
-                  <div className="text-xs text-indigo-400 font-semibold mb-1">Urdu • Nastaleeq</div>
-                  <div className="text-xl sm:text-2xl text-white font-serif" dir="rtl" style={{ fontFamily: '"Noto Nastaleeq Urdu", serif' }}>
-                    {fonts[0].previewText}
-                  </div>
-                </div>
-                <div 
-                  onClick={() => onSelectFont(fonts[3])}
-                  className="bg-neutral-800/80 backdrop-blur-md p-4 rounded-2xl border border-neutral-700 cursor-pointer hover:border-indigo-500 transition-all"
-                >
-                  <div className="text-xs text-indigo-400 font-semibold mb-1">Arabic • Traditional</div>
-                  <div className="text-xl sm:text-2xl text-white font-serif" dir="rtl" style={{ fontFamily: '"Amiri", serif' }}>
-                    {fonts[3].previewText}
-                  </div>
-                </div>
-                <div 
-                  onClick={() => onSelectFont(fonts[6])}
-                  className="bg-neutral-800/80 backdrop-blur-md p-4 rounded-2xl border border-neutral-700 cursor-pointer hover:border-indigo-500 transition-all"
-                >
-                  <div className="text-xs text-indigo-400 font-semibold mb-1">English • Serif</div>
-                  <div className="text-xl sm:text-2xl text-white font-serif" style={{ fontFamily: '"Playfair Display", serif' }}>
-                    {fonts[6].previewText}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Popular Fonts Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+      {/* Featured / Popular Fonts Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-neutral-200 pb-4">
           <div>
-            <div className="flex items-center gap-2 text-indigo-600 font-semibold text-xs uppercase tracking-wider mb-1">
-              <Zap className="w-4 h-4" /> Trending Now
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900">
-              Popular Fonts {selectedLanguage !== 'All' ? `(${selectedLanguage})` : ''}
+            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight">
+              Featured Typefaces
             </h2>
+            <p className="text-neutral-500 text-sm mt-1">
+              Hand-picked professional fonts with lightning-fast download links
+            </p>
           </div>
           <button
             onClick={() => navigate('fonts')}
-            className="flex items-center gap-1.5 text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors self-start sm:self-auto"
+            className="flex items-center gap-2 text-sm font-bold text-indigo-600 hover:text-indigo-700 transition-colors cursor-pointer group"
           >
-            <span>View all fonts</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>Browse Full Library</span>
+            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 
+        {/* Font Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredFonts.slice(0, 6).map((font) => (
             <FontCard
@@ -209,44 +143,39 @@ export function HomeView({
         <LivePreviewTool fonts={fonts} onSelectFont={onSelectFont} onDownload={onDownload} />
       </section>
 
-      {/* Categories Highlights */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <span className="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Explore Styles</span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900">Browse by Category</h2>
-          </div>
-          <button
-            onClick={() => navigate('categories')}
-            className="text-sm font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1"
-          >
-            <span>All Categories</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+      {/* Language Categories Showcase */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="border-b border-neutral-200 pb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight">
+            Explore by Language & Script
+          </h2>
+          <p className="text-neutral-500 text-sm mt-1">
+            Specialized typographic collections for South Asian and Middle Eastern publishing
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {LANGUAGES.map((lang) => {
-            const categories = CATEGORIES_BY_LANGUAGE[lang] || [];
+            const count = fonts.filter((f) => f.language === lang).length;
             return (
               <div
                 key={lang}
                 onClick={() => navigate('fonts', { language: lang })}
-                className="bg-white p-6 rounded-2xl border border-neutral-200/90 shadow-2xs hover:shadow-lg hover:border-indigo-300 cursor-pointer transition-all flex flex-col justify-between group"
+                className="bg-white p-6 rounded-2xl border border-neutral-200/90 shadow-2xs hover:shadow-lg transition-all cursor-pointer group flex flex-col justify-between hover:border-indigo-300"
               >
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                    {lang[0]}
+                  <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                    {lang.charAt(0)}
                   </div>
-                  <h3 className="font-bold text-lg text-neutral-900 group-hover:text-indigo-600 transition-colors">
+                  <h3 className="font-bold text-neutral-900 text-lg group-hover:text-indigo-600 transition-colors">
                     {lang} Fonts
                   </h3>
                   <p className="text-xs text-neutral-500 mt-1">
-                    {categories.slice(0, 3).join(', ')}...
+                    {count} professional typefaces available
                   </p>
                 </div>
-                <div className="mt-6 flex items-center gap-1 text-xs font-semibold text-indigo-600">
-                  <span>Explore</span>
+                <div className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-indigo-600">
+                  <span>Explore {lang}</span>
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -294,6 +223,11 @@ export function HomeView({
             </div>
           </div>
         </div>
+      </section>
+
+      {/* SEO Helpful Content Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SeoHelpfulContent />
       </section>
     </div>
   );
