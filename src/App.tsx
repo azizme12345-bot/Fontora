@@ -10,6 +10,8 @@ import { CategoriesView } from './views/CategoriesView';
 import { FavoritesView } from './views/FavoritesView';
 import { FontDetailView } from './views/FontDetailView';
 import { AboutView } from './views/AboutView';
+import { PrivacyPolicyView } from './views/PrivacyPolicyView';
+import { ContactView } from './views/ContactView';
 import { downloadFontFile } from './utils/downloadFont';
 
 function parseRouteFromUrl(): { route: string; font: Font | null; params?: { language?: string; category?: string } } {
@@ -24,6 +26,39 @@ function parseRouteFromUrl(): { route: string; font: Font | null; params?: { lan
   if (path === '/fonts') {
     return { route: 'fonts', font: null };
   }
+  if (path === '/categories') {
+    return { route: 'categories', font: null };
+  }
+  if (path === '/popular-fonts') {
+    return { route: 'popular-fonts', font: null };
+  }
+  if (path === '/urdu-fonts') {
+    return { route: 'urdu-fonts', font: null, params: { language: 'Urdu' } };
+  }
+  if (path === '/arabic-fonts') {
+    return { route: 'arabic-fonts', font: null, params: { language: 'Arabic' } };
+  }
+  if (path === '/hindi-fonts') {
+    return { route: 'hindi-fonts', font: null, params: { language: 'Hindi' } };
+  }
+  if (path === '/english-fonts') {
+    return { route: 'english-fonts', font: null, params: { language: 'English' } };
+  }
+  if (path === '/roman-urdu-fonts') {
+    return { route: 'roman-urdu-fonts', font: null, params: { language: 'Roman Urdu' } };
+  }
+  if (path === '/about') {
+    return { route: 'about', font: null };
+  }
+  if (path === '/privacy-policy') {
+    return { route: 'privacy-policy', font: null };
+  }
+  if (path === '/contact') {
+    return { route: 'contact', font: null };
+  }
+  if (path === '/favorites') {
+    return { route: 'favorites', font: null };
+  }
   if (path.startsWith('/fonts/')) {
     const slug = path.replace('/fonts/', '');
     const found = FONTS_DATA.find((f) => f.slug === slug || f.id === slug);
@@ -31,15 +66,6 @@ function parseRouteFromUrl(): { route: string; font: Font | null; params?: { lan
       return { route: 'font-detail', font: found };
     }
     return { route: 'fonts', font: null };
-  }
-  if (path === '/categories') {
-    return { route: 'categories', font: null };
-  }
-  if (path === '/favorites') {
-    return { route: 'favorites', font: null };
-  }
-  if (path === '/about') {
-    return { route: 'about', font: null };
   }
   return { route: 'home', font: null };
 }
@@ -54,23 +80,55 @@ function updateMetadata(route: string, font: Font | null) {
   if (route === 'font-detail' && font) {
     title = `${font.name} - Free Download & Live Preview | Fontora`;
     desc = `${font.description} Free download ${font.name} in ${font.fontFormat} format with interactive multi-script preview.`;
-    canonical = `${baseUrl}/fonts/${font.slug}`;
+    canonical = `${baseUrl}/fonts`;
   } else if (route === 'fonts') {
-    title = 'Browse All Fonts - Urdu, Arabic, Hindi & English Typefaces | Fontora';
-    desc = 'Explore 140+ premium Urdu, Arabic, Hindi, English, and Roman Urdu fonts with live multi-lingual preview and free downloads.';
+    title = 'All Fonts Directory - Urdu, Arabic, Hindi & English | Fontora';
+    desc = 'Browse 140+ verified open-source and community typefaces across Urdu, Arabic, Devanagari, and Latin scripts.';
     canonical = `${baseUrl}/fonts`;
   } else if (route === 'categories') {
     title = 'Font Categories - Nastaleeq, Naskh, Calligraphy & Display | Fontora';
-    desc = 'Browse fonts by category: Nastaleeq, Naskh, Calligraphy, Serif, Sans-Serif, Handwriting, and Modern Display typography.';
+    desc = 'Browse fonts categorized by artistic style: Nastaleeq, Naskh, Arabic Calligraphy, Serif, Sans-Serif, and Handwriting.';
     canonical = `${baseUrl}/categories`;
+  } else if (route === 'popular-fonts') {
+    title = 'Popular Fonts - Most Downloaded Multilingual Typefaces | Fontora';
+    desc = 'Explore the highest rated, most popular Urdu Nastaleeq, Arabic, Hindi, and English fonts downloaded by designers worldwide.';
+    canonical = `${baseUrl}/popular-fonts`;
+  } else if (route === 'urdu-fonts') {
+    title = 'Urdu Fonts - Download Free Jameel Noori Nastaleeq & Naskh | Fontora';
+    desc = 'Download top Urdu fonts including Jameel Noori Nastaleeq, Alvi Naskh, Gulzar, and Quranic calligraphy for professional design.';
+    canonical = `${baseUrl}/urdu-fonts`;
+  } else if (route === 'arabic-fonts') {
+    title = 'Arabic Fonts - Quranic, Calligraphy & Modern Sans | Fontora';
+    desc = 'Explore premium Arabic typefaces: Amiri Quranic, Cairo, Reem Kufi, and Scheherazade with live ligature testing.';
+    canonical = `${baseUrl}/arabic-fonts`;
+  } else if (route === 'hindi-fonts') {
+    title = 'Hindi Devanagari Fonts - Free Download & Live Preview | Fontora';
+    desc = 'Discover beautiful Devanagari and Hindi fonts for websites, branding, posters, and graphic design.';
+    canonical = `${baseUrl}/hindi-fonts`;
+  } else if (route === 'english-fonts') {
+    title = 'English Fonts - Modern Serif, Sans-Serif & Display | Fontora';
+    desc = 'Collection of high-legibility English typefaces: Inter, Roboto, Playfair Display, Montserrat, and Fira Code.';
+    canonical = `${baseUrl}/english-fonts`;
+  } else if (route === 'roman-urdu-fonts') {
+    title = 'Roman Urdu Fonts - Stylish Social Media Typography | Fontora';
+    desc = 'Aesthetic, bold, and modern typography tailored for Roman Urdu quotes, Instagram reels, and YouTube thumbnails.';
+    canonical = `${baseUrl}/roman-urdu-fonts`;
+  } else if (route === 'about') {
+    title = 'About Us - Fontora Multilingual Typography Platform';
+    desc = 'Learn about the Fontora platform, our mission to elevate non-Latin typography, and our open-source licensing standards.';
+    canonical = `${baseUrl}/about`;
+  } else if (route === 'privacy-policy') {
+    title = 'Privacy Policy - Zero Tracking & Local Storage | Fontora';
+    desc = 'Read Fontora\'s transparent privacy policy: zero account registration, no tracking cookies, and local client storage.';
+    canonical = `${baseUrl}/privacy-policy`;
+  } else if (route === 'contact') {
+    title = 'Contact Us & Font Submissions | Fontora';
+    desc = 'Get in touch with Fontora for font submissions, designer attribution updates, DMCA inquiries, or feedback.';
+    canonical = `${baseUrl}/contact`;
   } else if (route === 'favorites') {
     title = 'My Saved Fonts - Fontora Collection';
     desc = 'View and test your saved collection of favorite Urdu, Arabic, and English typefaces.';
     canonical = `${baseUrl}/favorites`;
-  } else if (route === 'about') {
-    title = 'About Fontora & Font Licensing Policy';
-    desc = 'Learn about the Fontora multilingual typography platform, open-source font licenses, and our commitment to privacy.';
-    canonical = `${baseUrl}/about`;
   }
 
   document.title = title;
@@ -102,6 +160,33 @@ export default function App() {
       return [];
     }
   });
+
+  // Dark / Black mode state with localStorage persistence
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem('fontora_dark_mode');
+      return saved ? JSON.parse(saved) : false;
+    } catch {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('fontora_dark_mode', JSON.stringify(darkMode));
+      if (darkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    } catch (err) {
+      console.error('Failed to save dark mode', err);
+    }
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   // Handle URL changes & browser history back/forward
   useEffect(() => {
@@ -158,10 +243,6 @@ export default function App() {
   const handleSelectFont = (font: Font) => {
     setSelectedFont(font);
     setCurrentRoute('font-detail');
-    const path = `/fonts/${font.slug}`;
-    if (window.location.pathname !== path) {
-      window.history.pushState({}, '', path);
-    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -188,7 +269,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50/60 text-neutral-900 flex flex-col font-sans selection:bg-indigo-600 selection:text-white">
+    <div className={`min-h-screen flex flex-col font-sans selection:bg-indigo-600 selection:text-white ${
+      darkMode ? 'bg-neutral-950 text-neutral-100 dark' : 'bg-neutral-50/60 text-neutral-900'
+    }`}>
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-neutral-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm font-semibold animate-in slide-in-from-bottom-5 duration-200 border border-neutral-700">
@@ -204,6 +287,8 @@ export default function App() {
         favoritesCount={favorites.length}
         onOpenSearch={() => setIsSearchModalOpen(true)}
         onOpenPublisherConsole={() => setIsPublisherModalOpen(true)}
+        darkMode={darkMode}
+        onToggleDarkMode={toggleDarkMode}
       />
 
       {/* Main Content Area */}
@@ -232,6 +317,84 @@ export default function App() {
           />
         )}
 
+        {currentRoute === 'popular-fonts' && (
+          <FontsView
+            fonts={FONTS_DATA}
+            favorites={favorites}
+            onToggleFavorite={handleToggleFavorite}
+            onSelectFont={handleSelectFont}
+            onDownload={handleDownloadFont}
+            popularOnly={true}
+            pageTitle="Popular & Trending Fonts"
+            pageSubtitle="Explore our highest-rated, most downloaded multilingual typefaces."
+          />
+        )}
+
+        {currentRoute === 'urdu-fonts' && (
+          <FontsView
+            fonts={FONTS_DATA}
+            favorites={favorites}
+            onToggleFavorite={handleToggleFavorite}
+            onSelectFont={handleSelectFont}
+            onDownload={handleDownloadFont}
+            initialLanguage="Urdu"
+            pageTitle="Urdu Fonts Collection"
+            pageSubtitle="Free download authentic Nastaleeq, Naskh, and Urdu calligraphic typefaces."
+          />
+        )}
+
+        {currentRoute === 'arabic-fonts' && (
+          <FontsView
+            fonts={FONTS_DATA}
+            favorites={favorites}
+            onToggleFavorite={handleToggleFavorite}
+            onSelectFont={handleSelectFont}
+            onDownload={handleDownloadFont}
+            initialLanguage="Arabic"
+            pageTitle="Arabic Fonts Directory"
+            pageSubtitle="Discover Quranic, classic calligraphy, and modern Arabic display typefaces."
+          />
+        )}
+
+        {currentRoute === 'hindi-fonts' && (
+          <FontsView
+            fonts={FONTS_DATA}
+            favorites={favorites}
+            onToggleFavorite={handleToggleFavorite}
+            onSelectFont={handleSelectFont}
+            onDownload={handleDownloadFont}
+            initialLanguage="Hindi"
+            pageTitle="Hindi & Devanagari Fonts"
+            pageSubtitle="Classical and contemporary Devanagari typography for websites and print."
+          />
+        )}
+
+        {currentRoute === 'english-fonts' && (
+          <FontsView
+            fonts={FONTS_DATA}
+            favorites={favorites}
+            onToggleFavorite={handleToggleFavorite}
+            onSelectFont={handleSelectFont}
+            onDownload={handleDownloadFont}
+            initialLanguage="English"
+            pageTitle="English Typefaces Library"
+            pageSubtitle="High legibility Serif, Sans-Serif, Monospace, and Display typography."
+          />
+        )}
+
+        {currentRoute === 'roman-urdu-fonts' && (
+          <FontsView
+            fonts={FONTS_DATA}
+            favorites={favorites}
+            onToggleFavorite={handleToggleFavorite}
+            onSelectFont={handleSelectFont}
+            onDownload={handleDownloadFont}
+            initialLanguage="Roman Urdu"
+            pageTitle="Roman Urdu Typography"
+            pageSubtitle="Punchy, stylish typefaces designed for modern social media posts and reels."
+          />
+        )}
+
         {currentRoute === 'categories' && (
           <CategoriesView fonts={FONTS_DATA} navigate={navigate} />
         )}
@@ -247,6 +410,12 @@ export default function App() {
           />
         )}
 
+        {currentRoute === 'about' && <AboutView />}
+
+        {currentRoute === 'privacy-policy' && <PrivacyPolicyView />}
+
+        {currentRoute === 'contact' && <ContactView />}
+
         {currentRoute === 'font-detail' && selectedFont && (
           <FontDetailView
             font={selectedFont}
@@ -258,8 +427,6 @@ export default function App() {
             navigate={navigate}
           />
         )}
-
-        {currentRoute === 'about' && <AboutView />}
       </main>
 
       {/* Footer */}

@@ -6,9 +6,9 @@ interface FooterProps {
 
 export function Footer({ navigate }: FooterProps) {
   return (
-    <footer className="bg-neutral-900 text-neutral-400 border-t border-neutral-800 pt-16 pb-12 mt-20">
+    <footer className="bg-neutral-900 dark:bg-neutral-950 text-neutral-400 border-t border-neutral-800 pt-10 pb-8 mt-12 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand info */}
           <div className="space-y-4 md:col-span-1">
             <a 
@@ -44,7 +44,7 @@ export function Footer({ navigate }: FooterProps) {
                   onClick={(e) => { e.preventDefault(); navigate('home'); }} 
                   className="hover:text-white transition-colors"
                 >
-                  Featured Fonts
+                  Home
                 </a>
               </li>
               <li>
@@ -62,16 +62,16 @@ export function Footer({ navigate }: FooterProps) {
                   onClick={(e) => { e.preventDefault(); navigate('categories'); }} 
                   className="hover:text-white transition-colors"
                 >
-                  Categories
+                  Font Categories
                 </a>
               </li>
               <li>
                 <a 
-                  href="/favorites" 
-                  onClick={(e) => { e.preventDefault(); navigate('favorites'); }} 
+                  href="/popular-fonts" 
+                  onClick={(e) => { e.preventDefault(); navigate('popular-fonts'); }} 
                   className="hover:text-white transition-colors"
                 >
-                  My Saved Fonts
+                  Popular & Top Fonts
                 </a>
               </li>
             </ul>
@@ -79,12 +79,12 @@ export function Footer({ navigate }: FooterProps) {
 
           {/* Languages */}
           <div>
-            <h3 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Languages</h3>
+            <h3 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Scripts & Languages</h3>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <a 
-                  href="/fonts" 
-                  onClick={(e) => { e.preventDefault(); navigate('fonts', { language: 'Urdu' }); }} 
+                  href="/urdu-fonts" 
+                  onClick={(e) => { e.preventDefault(); navigate('urdu-fonts'); }} 
                   className="hover:text-white transition-colors"
                 >
                   Urdu Fonts (Nastaleeq & Naskh)
@@ -92,35 +92,35 @@ export function Footer({ navigate }: FooterProps) {
               </li>
               <li>
                 <a 
-                  href="/fonts" 
-                  onClick={(e) => { e.preventDefault(); navigate('fonts', { language: 'Arabic' }); }} 
+                  href="/arabic-fonts" 
+                  onClick={(e) => { e.preventDefault(); navigate('arabic-fonts'); }} 
                   className="hover:text-white transition-colors"
                 >
-                  Arabic Calligraphy & Modern
+                  Arabic Fonts (Calligraphy & Modern)
                 </a>
               </li>
               <li>
                 <a 
-                  href="/fonts" 
-                  onClick={(e) => { e.preventDefault(); navigate('fonts', { language: 'Hindi' }); }} 
+                  href="/hindi-fonts" 
+                  onClick={(e) => { e.preventDefault(); navigate('hindi-fonts'); }} 
                   className="hover:text-white transition-colors"
                 >
-                  Hindi Devanagari Fonts
+                  Hindi Fonts (Devanagari)
                 </a>
               </li>
               <li>
                 <a 
-                  href="/fonts" 
-                  onClick={(e) => { e.preventDefault(); navigate('fonts', { language: 'English' }); }} 
+                  href="/english-fonts" 
+                  onClick={(e) => { e.preventDefault(); navigate('english-fonts'); }} 
                   className="hover:text-white transition-colors"
                 >
-                  English Serif & Sans
+                  English Fonts (Serif & Sans)
                 </a>
               </li>
               <li>
                 <a 
-                  href="/fonts" 
-                  onClick={(e) => { e.preventDefault(); navigate('fonts', { language: 'Roman Urdu' }); }} 
+                  href="/roman-urdu-fonts" 
+                  onClick={(e) => { e.preventDefault(); navigate('roman-urdu-fonts'); }} 
                   className="hover:text-white transition-colors"
                 >
                   Roman Urdu Typography
@@ -129,9 +129,9 @@ export function Footer({ navigate }: FooterProps) {
             </ul>
           </div>
 
-          {/* Legal & Licensing */}
+          {/* Legal & Information */}
           <div>
-            <h3 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Legal & Information</h3>
+            <h3 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Information & Legal</h3>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <a 
@@ -139,25 +139,25 @@ export function Footer({ navigate }: FooterProps) {
                   onClick={(e) => { e.preventDefault(); navigate('about'); }} 
                   className="hover:text-white transition-colors"
                 >
-                  Font Licensing Policy
+                  About Us & Licensing
                 </a>
               </li>
               <li>
                 <a 
-                  href="/about" 
-                  onClick={(e) => { e.preventDefault(); navigate('about'); }} 
+                  href="/privacy-policy" 
+                  onClick={(e) => { e.preventDefault(); navigate('privacy-policy'); }} 
                   className="hover:text-white transition-colors"
                 >
-                  Privacy Policy & Data Handling
+                  Privacy Policy
                 </a>
               </li>
               <li>
                 <a 
-                  href="/about" 
-                  onClick={(e) => { e.preventDefault(); navigate('about'); }} 
+                  href="/contact" 
+                  onClick={(e) => { e.preventDefault(); navigate('contact'); }} 
                   className="hover:text-white transition-colors"
                 >
-                  Copyright & Attributions
+                  Contact & DMCA
                 </a>
               </li>
             </ul>

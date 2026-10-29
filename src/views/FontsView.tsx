@@ -1,8 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Font, LANGUAGES, CATEGORIES_BY_LANGUAGE } from '../data/fonts';
 import { FontCard } from '../components/FontCard';
-import { AdPlaceholder } from '../components/AdPlaceholder';
-import { Search, SlidersHorizontal, ArrowUpDown, X } from 'lucide-react';
+import { Search, SlidersHorizontal, ArrowUpDown, X, Sparkles } from 'lucide-react';
 
 interface FontsViewProps {
   fonts: Font[];
@@ -12,6 +11,9 @@ interface FontsViewProps {
   onDownload: (font: Font, e: React.MouseEvent) => void;
   initialLanguage?: string;
   initialCategory?: string;
+  pageTitle?: string;
+  pageSubtitle?: string;
+  popularOnly?: boolean;
 }
 
 export function FontsView({
@@ -22,18 +24,37 @@ export function FontsView({
   onDownload,
   initialLanguage = 'All',
   initialCategory = 'All',
+  pageTitle,
+  pageSubtitle,
+  popularOnly = false,
 }: FontsViewProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState<string>(initialLanguage);
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
   const [sortBy, setSortBy] = useState<'popularity' | 'downloads' | 'name'>('popularity');
 
+  // Synchronize when initialLanguage changes (e.g. from routing)
+  useEffect(() => {
+    setSelectedLanguage(initialLanguage);
+  }, [initialLanguage]);
+
+  useEffect(() => {
+    setSelectedCategory(initialCategory);
+  }, [initialCategory]);
+
   const categoriesForLang = selectedLanguage === 'All'
     ? []
     : CATEGORIES_BY_LANGUAGE[selectedLanguage] || [];
 
+  const baseFontList = useMemo(() => {
+    if (popularOnly) {
+      return fonts.filter((f) => f.isPopular || f.popularity >= 88);
+    }
+    return fonts;
+  }, [fonts, popularOnly]);
+
   const filteredFonts = useMemo(() => {
-    return fonts
+    return baseFontList
       .filter((font) => {
         const matchesLang = selectedLanguage === 'All' || font.language === selectedLanguage;
         const matchesCat = selectedCategory === 'All' || font.category === selectedCategory;
@@ -51,24 +72,41 @@ export function FontsView({
         if (sortBy === 'name') return a.name.localeCompare(b.name);
         return b.popularity - a.popularity;
       });
-  }, [fonts, selectedLanguage, selectedCategory, searchQuery, sortBy]);
+  }, [baseFontList, selectedLanguage, selectedCategory, searchQuery, sortBy]);
 
   const handleLanguageChange = (lang: string) => {
     setSelectedLanguage(lang);
     setSelectedCategory('All'); // Reset category when language changes
   };
 
+  const currentTitle =
+    pageTitle ||
+    (popularOnly
+      ? 'Popular & Trending Fonts'
+      : selectedLanguage !== 'All'
+      ? `${selectedLanguage} Fonts Collection`
+      : 'Explore All Fonts');
+
+  const currentSubtitle =
+    pageSubtitle ||
+    (popularOnly
+      ? 'The most downloaded and highly rated typefaces on Fontora.'
+      : `Browse our collection of ${filteredFonts.length} professional multilingual typefaces.`);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       {/* Page Title */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-neutral-200 pb-6">
         <div>
-          <span className="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Font Directory</span>
+          <span className="text-xs font-semibold text-indigo-600 uppercase tracking-wider flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5" />
+            {popularOnly ? 'Featured Collection' : 'Font Directory'}
+          </span>
           <h1 className="text-3xl sm:text-4xl font-black text-neutral-900 mt-1">
-            Explore All Fonts
+            {currentTitle}
           </h1>
           <p className="text-neutral-600 text-sm mt-1">
-            Browse our complete collection of {fonts.length} professional multilingual typefaces.
+            {currentSubtitle}
           </p>
         </div>
 
@@ -112,39 +150,44 @@ export function FontsView({
         </div>
 
         {/* Language Tabs */}
-        <div className="space-y-2">
-          <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider block">
-            Filter by Language:
-          </span>
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              onClick={() => handleLanguageChange('All')}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
-                selectedLanguage === 'All'
-                  ? 'bg-neutral-900 text-white shadow-md'
-                  : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
-              }`}
-            >
-              All Languages
-            </button>
-            {LANGUAGES.map((lang) => (
+        {!popularOnly && (
+          <div className="space-y-2">
+            <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider block">
+              Filter by Language:
+            </span>
+            <div className="flex flex-wrap items-center gap-2">
               <button
-                key={lang}
-                onClick={() => handleLanguageChange(lang)}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
-                  selectedLanguage === lang
-                    ? 'bg-indigo-600 text-white shadow-md'
-                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                onClick={() => handleLanguageChange('All')}
+                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                  selectedLanguage === 'All'
+                    ? 'bg-neutral-900 text-white shadow-sm'
+                    : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                 }`}
               >
-                {lang}
+                All Languages ({fonts.length})
               </button>
-            ))}
+              {LANGUAGES.map((lang) => {
+                const count = fonts.filter((f) => f.language === lang).length;
+                return (
+                  <button
+                    key={lang}
+                    onClick={() => handleLanguageChange(lang)}
+                    className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                      selectedLanguage === lang
+                        ? 'bg-indigo-600 text-white shadow-sm'
+                        : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                    }`}
+                  >
+                    {lang} ({count})
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Subcategories (if language selected) */}
-        {selectedLanguage !== 'All' && categoriesForLang.length > 0 && (
+        {/* Category Chips (if language is selected) */}
+        {categoriesForLang.length > 0 && (
           <div className="space-y-2 pt-2 border-t border-neutral-100">
             <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider block">
               {selectedLanguage} Categories:
@@ -152,10 +195,10 @@ export function FontsView({
             <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={() => setSelectedCategory('All')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                   selectedCategory === 'All'
-                    ? 'bg-indigo-100 text-indigo-700 font-semibold'
-                    : 'bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
+                    ? 'bg-neutral-800 text-white'
+                    : 'bg-neutral-50 text-neutral-600 border border-neutral-200 hover:bg-neutral-100'
                 }`}
               >
                 All {selectedLanguage}
@@ -164,10 +207,10 @@ export function FontsView({
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                     selectedCategory === cat
-                      ? 'bg-indigo-100 text-indigo-700 font-semibold'
-                      : 'bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
+                      ? 'bg-indigo-600 text-white'
+                      : 'bg-neutral-50 text-neutral-600 border border-neutral-200 hover:bg-neutral-100'
                   }`}
                 >
                   {cat}
@@ -178,49 +221,29 @@ export function FontsView({
         )}
       </div>
 
-      {/* Results Count & Active Filters */}
-      <div className="flex items-center justify-between text-sm text-neutral-500 px-1">
-        <div>
-          Showing <span className="font-bold text-neutral-900">{filteredFonts.length}</span> fonts
-          {selectedLanguage !== 'All' && <span> in <span className="font-semibold text-indigo-600">{selectedLanguage}</span></span>}
-          {selectedCategory !== 'All' && <span> ({selectedCategory})</span>}
-        </div>
-        {(selectedLanguage !== 'All' || selectedCategory !== 'All' || searchQuery !== '') && (
+      {/* Active filters status */}
+      <div className="flex items-center justify-between text-xs text-neutral-500 font-medium px-2">
+        <span>
+          Showing <strong className="text-neutral-900">{filteredFonts.length}</strong> fonts
+          {selectedLanguage !== 'All' && ` in ${selectedLanguage}`}
+          {selectedCategory !== 'All' && ` (${selectedCategory})`}
+        </span>
+        {(selectedLanguage !== 'All' || selectedCategory !== 'All' || searchQuery) && (
           <button
             onClick={() => {
               setSelectedLanguage('All');
               setSelectedCategory('All');
               setSearchQuery('');
             }}
-            className="text-xs text-indigo-600 hover:underline font-semibold"
+            className="text-indigo-600 hover:text-indigo-700 font-semibold"
           >
-            Clear Filters
+            Clear all filters
           </button>
         )}
       </div>
 
-      {/* Fonts Grid */}
-      {filteredFonts.length === 0 ? (
-        <div className="bg-white rounded-3xl border border-neutral-200 p-16 text-center space-y-4">
-          <div className="w-16 h-16 bg-neutral-100 text-neutral-400 rounded-full flex items-center justify-center mx-auto text-2xl">
-            🔍
-          </div>
-          <h3 className="text-xl font-bold text-neutral-900">No matching fonts found</h3>
-          <p className="text-neutral-500 text-sm max-w-md mx-auto">
-            Try adjusting your search terms or clearing language and category filters.
-          </p>
-          <button
-            onClick={() => {
-              setSelectedLanguage('All');
-              setSelectedCategory('All');
-              setSearchQuery('');
-            }}
-            className="px-6 py-2.5 bg-neutral-900 text-white rounded-xl text-xs font-semibold hover:bg-indigo-600 transition-colors"
-          >
-            Reset All Filters
-          </button>
-        </div>
-      ) : (
+      {/* Font Cards Grid */}
+      {filteredFonts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredFonts.map((font) => (
             <FontCard
@@ -233,10 +256,27 @@ export function FontsView({
             />
           ))}
         </div>
+      ) : (
+        <div className="bg-white rounded-3xl border border-neutral-200 p-12 text-center space-y-4">
+          <div className="w-12 h-12 bg-neutral-100 rounded-full flex items-center justify-center mx-auto text-neutral-400">
+            <SlidersHorizontal className="w-6 h-6" />
+          </div>
+          <h3 className="text-lg font-bold text-neutral-800">No fonts found</h3>
+          <p className="text-neutral-500 text-sm max-w-md mx-auto">
+            We couldn't find any fonts matching your current search and filter criteria. Try clearing some filters.
+          </p>
+          <button
+            onClick={() => {
+              setSelectedLanguage('All');
+              setSelectedCategory('All');
+              setSearchQuery('');
+            }}
+            className="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-500 transition-colors"
+          >
+            Reset Filters
+          </button>
+        </div>
       )}
-
-      {/* Ad Placeholder */}
-      <AdPlaceholder size="banner" />
     </div>
   );
 }

@@ -1,35 +1,107 @@
 import fs from 'fs';
 import path from 'path';
-import { FONTS_DATA } from './src/data/fonts.ts';
 
 const baseUrl = 'https://fontora-ten.vercel.app';
 
-// 1. Generate Sitemap XML
+// The 12 Essential Core Pages for Google Indexing & Authoritative SEO
+export const CORE_PAGES = [
+  {
+    path: '',
+    title: 'Fontora - Multilingual Font Platform & Typography Preview',
+    desc: 'Discover, preview, and download stunning Urdu, Arabic, Hindi, English, and Roman Urdu fonts with live typography customization.',
+    priority: '1.0',
+    changefreq: 'daily'
+  },
+  {
+    path: 'fonts',
+    title: 'All Fonts Directory - Urdu, Arabic, Hindi & English | Fontora',
+    desc: 'Browse 140+ verified open-source and community typefaces across Urdu, Arabic, Devanagari, and Latin scripts.',
+    priority: '0.9',
+    changefreq: 'daily'
+  },
+  {
+    path: 'categories',
+    title: 'Font Categories - Nastaleeq, Naskh, Calligraphy & Display | Fontora',
+    desc: 'Browse fonts categorized by artistic style: Nastaleeq, Naskh, Arabic Calligraphy, Serif, Sans-Serif, and Handwriting.',
+    priority: '0.8',
+    changefreq: 'weekly'
+  },
+  {
+    path: 'popular-fonts',
+    title: 'Popular Fonts - Most Downloaded Multilingual Typefaces | Fontora',
+    desc: 'Explore the highest rated, most popular Urdu Nastaleeq, Arabic, Hindi, and English fonts downloaded by designers worldwide.',
+    priority: '0.9',
+    changefreq: 'daily'
+  },
+  {
+    path: 'urdu-fonts',
+    title: 'Urdu Fonts - Download Free Jameel Noori Nastaleeq & Naskh | Fontora',
+    desc: 'Download top Urdu fonts including Jameel Noori Nastaleeq, Alvi Naskh, Gulzar, and Quranic calligraphy for professional design.',
+    priority: '0.9',
+    changefreq: 'weekly'
+  },
+  {
+    path: 'arabic-fonts',
+    title: 'Arabic Fonts - Quranic, Calligraphy & Modern Sans | Fontora',
+    desc: 'Explore premium Arabic typefaces: Amiri Quranic, Cairo, Reem Kufi, and Scheherazade with live ligature testing.',
+    priority: '0.9',
+    changefreq: 'weekly'
+  },
+  {
+    path: 'hindi-fonts',
+    title: 'Hindi Devanagari Fonts - Free Download & Live Preview | Fontora',
+    desc: 'Discover beautiful Devanagari and Hindi fonts for websites, branding, posters, and graphic design.',
+    priority: '0.8',
+    changefreq: 'weekly'
+  },
+  {
+    path: 'english-fonts',
+    title: 'English Fonts - Modern Serif, Sans-Serif & Display | Fontora',
+    desc: 'Collection of high-legibility English typefaces: Inter, Roboto, Playfair Display, Montserrat, and Fira Code.',
+    priority: '0.8',
+    changefreq: 'weekly'
+  },
+  {
+    path: 'roman-urdu-fonts',
+    title: 'Roman Urdu Fonts - Stylish Social Media Typography | Fontora',
+    desc: 'Aesthetic, bold, and modern typography tailored for Roman Urdu quotes, Instagram reels, and YouTube thumbnails.',
+    priority: '0.8',
+    changefreq: 'weekly'
+  },
+  {
+    path: 'about',
+    title: 'About Us - Fontora Multilingual Typography Platform',
+    desc: 'Learn about the Fontora platform, our mission to elevate non-Latin typography, and our open-source licensing standards.',
+    priority: '0.7',
+    changefreq: 'monthly'
+  },
+  {
+    path: 'privacy-policy',
+    title: 'Privacy Policy - Zero Tracking & Local Storage | Fontora',
+    desc: "Read Fontora's transparent privacy policy: zero account registration, no tracking cookies, and local client storage.",
+    priority: '0.6',
+    changefreq: 'monthly'
+  },
+  {
+    path: 'contact',
+    title: 'Contact Us & Font Submissions | Fontora',
+    desc: 'Get in touch with Fontora for font submissions, designer attribution updates, DMCA inquiries, or feedback.',
+    priority: '0.7',
+    changefreq: 'monthly'
+  }
+];
+
+// 1. Generate Sitemap XML containing strictly the 12 core URLs
 let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
 xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
 
-const staticPages = [
-  { path: '', priority: '1.0' },
-  { path: 'fonts', priority: '0.8' },
-  { path: 'categories', priority: '0.8' },
-  { path: 'favorites', priority: '0.8' },
-  { path: 'about', priority: '0.8' },
-];
-
-staticPages.forEach(page => {
+CORE_PAGES.forEach(page => {
+  const url = page.path ? `${baseUrl}/${page.path}` : `${baseUrl}/`;
   xml += `  <url>\n`;
-  xml += `    <loc>${baseUrl}${page.path ? '/' + page.path : '/'}</loc>\n`;
-  xml += `    <changefreq>daily</changefreq>\n`;
-  xml += `    <priority>${page.priority}</priority>\n`;
-  xml += `  </url>\n`;
-});
-
-FONTS_DATA.forEach(font => {
-  xml += `  <url>\n`;
-  xml += `    <loc>${baseUrl}/fonts/${font.slug}</loc>\n`;
+  xml += `    <loc>${url}</loc>\n`;
   xml += `    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n`;
-  xml += `    <changefreq>weekly</changefreq>\n`;
-  xml += `    <priority>0.9</priority>\n`;
+  xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
+  xml += `    <priority>${page.priority}</priority>\n`;
   xml += `  </url>\n`;
 });
 
@@ -48,13 +120,12 @@ if (!fs.existsSync(publicDir)) {
 fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), xml);
 fs.writeFileSync(path.join(publicDir, 'robots.txt'), robots);
 
-// Write to dist/ directory if it exists
+// Write to dist/ directory if it exists and prerender static HTML
 const distDir = path.resolve('dist');
 if (fs.existsSync(distDir)) {
   fs.writeFileSync(path.join(distDir, 'sitemap.xml'), xml);
   fs.writeFileSync(path.join(distDir, 'robots.txt'), robots);
 
-  // 2. Prerender static HTML files for every route in dist/
   const templatePath = path.join(distDir, 'index.html');
   if (fs.existsSync(templatePath)) {
     const template = fs.readFileSync(templatePath, 'utf8');
@@ -80,58 +151,13 @@ if (fs.existsSync(distDir)) {
       fs.writeFileSync(path.join(targetDir, 'index.html'), html);
     };
 
-    // Render Home
-    renderPage(
-      '',
-      'Fontora - Multilingual Font Platform & Typography Preview',
-      'Discover, preview, and download stunning Urdu, Arabic, Hindi, English, and Roman Urdu fonts with live typography customization.',
-      `${baseUrl}/`
-    );
-
-    // Render Fonts
-    renderPage(
-      'fonts',
-      'Browse All Fonts - Urdu, Arabic, Hindi & English Typefaces | Fontora',
-      'Explore 140+ premium Urdu, Arabic, Hindi, English, and Roman Urdu fonts with live multi-lingual preview and free downloads.',
-      `${baseUrl}/fonts`
-    );
-
-    // Render Categories
-    renderPage(
-      'categories',
-      'Font Categories - Nastaleeq, Naskh, Calligraphy & Display | Fontora',
-      'Browse fonts by category: Nastaleeq, Naskh, Calligraphy, Serif, Sans-Serif, Handwriting, and Modern Display typography.',
-      `${baseUrl}/categories`
-    );
-
-    // Render Favorites
-    renderPage(
-      'favorites',
-      'My Saved Fonts - Fontora Collection',
-      'View and test your saved collection of favorite Urdu, Arabic, and English typefaces.',
-      `${baseUrl}/favorites`
-    );
-
-    // Render About
-    renderPage(
-      'about',
-      'About Fontora & Font Licensing Policy',
-      'Learn about the Fontora multilingual typography platform, open-source font licenses, and our commitment to privacy.',
-      `${baseUrl}/about`
-    );
-
-    // Render Font Detail Pages (/fonts/[slug])
-    FONTS_DATA.forEach(font => {
-      renderPage(
-        `fonts/${font.slug}`,
-        `${font.name} - Free Download & Live Preview | Fontora`,
-        `${font.description} Free download ${font.name} in ${font.fontFormat} format with interactive multi-script preview.`,
-        `${baseUrl}/fonts/${font.slug}`
-      );
+    CORE_PAGES.forEach(page => {
+      const canonical = page.path ? `${baseUrl}/${page.path}` : `${baseUrl}/`;
+      renderPage(page.path, page.title, page.desc, canonical);
     });
 
-    console.log(`Prerendered ${5 + FONTS_DATA.length} unique HTML files successfully in dist/`);
+    console.log(`Prerendered exactly ${CORE_PAGES.length} essential core HTML files successfully in dist/`);
   }
 }
 
-console.log('Static sitemap.xml, robots.txt, and prerendered HTML pages synchronized successfully.');
+console.log(`Static sitemap.xml generated with ${CORE_PAGES.length} core URLs.`);

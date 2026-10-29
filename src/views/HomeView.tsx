@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Font, LANGUAGES, CATEGORIES_BY_LANGUAGE } from '../data/fonts';
+import { Font } from '../data/fonts';
 import { FontCard } from '../components/FontCard';
 import { LivePreviewTool } from '../components/LivePreviewTool';
-import { AdPlaceholder } from '../components/AdPlaceholder';
 import { SeoHelpfulContent } from '../components/SeoHelpfulContent';
-import { Search, Sparkles, ArrowRight, Download, Globe, ShieldCheck, Zap } from 'lucide-react';
+import { Search, Sparkles, ArrowRight, ShieldCheck, Zap, Globe2 } from 'lucide-react';
 
 interface HomeViewProps {
   fonts: Font[];
@@ -33,56 +32,70 @@ export function HomeView({
     : fonts.filter((f) => f.language === selectedLanguage);
 
   return (
-    <div className="space-y-16 pb-20">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-indigo-50/50 via-white to-white pt-12 pb-20 border-b border-neutral-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto space-y-6">
+    <div className="space-y-8 pb-12">
+      {/* Compact Hero Section */}
+      <section className="bg-gradient-to-b from-indigo-50/40 via-white to-white dark:from-neutral-900 dark:via-neutral-950 dark:to-neutral-950 pt-8 pb-8 border-b border-neutral-100 dark:border-neutral-800 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto space-y-4">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-100/80 text-indigo-800 text-xs font-semibold shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-              <span>Discover & Download Professional Fonts</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 dark:bg-indigo-950/80 dark:text-indigo-300 dark:border-indigo-800/50 text-xs font-semibold border border-indigo-100/80">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+              <span>Multilingual Typography Platform</span>
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-4xl sm:text-6xl font-black text-neutral-900 tracking-tight leading-[1.15]">
-              Find the <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">Perfect Font</span>
+            <h1 className="text-3xl sm:text-5xl font-black text-neutral-900 dark:text-neutral-100 tracking-tight leading-tight">
+              Find the <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">Perfect Font</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-xl text-neutral-600 leading-relaxed max-w-2xl mx-auto">
-              Discover beautiful Urdu, Arabic, Hindi, English, and Roman Urdu fonts. Preview them instantly and download with absolute ease.
+            <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 max-w-lg mx-auto">
+              Discover, preview, and download Urdu, Arabic, Hindi, English, and Roman Urdu fonts instantly.
             </p>
 
-            {/* Large Search Box */}
-            <div className="pt-4 max-w-2xl mx-auto">
+            {/* Compact Search Bar */}
+            <div className="pt-2 max-w-xl mx-auto">
               <div 
                 onClick={onOpenSearch}
-                className="flex items-center gap-3 bg-white border border-neutral-300 hover:border-indigo-400 p-3.5 sm:p-4 rounded-2xl shadow-lg cursor-pointer transition-all group"
+                className="flex items-center gap-3 bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 hover:border-indigo-500 dark:hover:border-indigo-500 px-4 py-3 rounded-2xl shadow-xs hover:shadow-md cursor-pointer transition-all group"
               >
-                <Search className="w-5 h-5 text-neutral-400 group-hover:text-indigo-600 transition-colors ml-2" />
-                <span className="text-neutral-400 text-sm sm:text-base flex-1 text-left">
-                  Search across 140+ Urdu, Arabic, Hindi, & English fonts...
+                <Search className="w-4 h-4 text-neutral-400 group-hover:text-indigo-600 transition-colors ml-1" />
+                <span className="text-neutral-400 dark:text-neutral-400 text-xs sm:text-sm flex-1 text-left">
+                  Search across 140+ verified typefaces...
                 </span>
-                <kbd className="hidden sm:inline-block px-2.5 py-1 bg-neutral-100 text-neutral-500 text-xs rounded-lg border border-neutral-200 font-mono">
+                <kbd className="hidden sm:inline-block px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-[10px] rounded border border-neutral-200 dark:border-neutral-700 font-mono">
                   ⌘K
                 </kbd>
               </div>
             </div>
 
-            {/* Quick Language Pills */}
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-              <span className="text-xs text-neutral-500 font-medium mr-1">Popular Scripts:</span>
-              {['All', 'Urdu', 'Arabic', 'Hindi', 'English', 'Roman Urdu'].map((lang) => (
+            {/* Quick Script Badges */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1">
+              <span className="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium mr-1">Scripts:</span>
+              {[
+                { name: 'All', route: null },
+                { name: 'Urdu', route: 'urdu-fonts' },
+                { name: 'Arabic', route: 'arabic-fonts' },
+                { name: 'Hindi', route: 'hindi-fonts' },
+                { name: 'English', route: 'english-fonts' },
+                { name: 'Roman Urdu', route: 'roman-urdu-fonts' },
+              ].map((item) => (
                 <button
-                  key={lang}
+                  key={item.name}
+                  type="button"
                   onClick={() => {
-                    setSelectedLanguage(lang);
-                    if (lang !== 'All') navigate('fonts', { language: lang });
+                    setSelectedLanguage(item.name);
+                    if (item.route) {
+                      navigate(item.route);
+                    }
                   }}
-                  className="px-3 py-1 bg-white hover:bg-neutral-100 text-neutral-700 text-xs font-semibold rounded-xl border border-neutral-200 shadow-2xs transition-all cursor-pointer"
+                  className={`px-3 py-1 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                    selectedLanguage === item.name
+                      ? 'bg-neutral-900 text-white border-neutral-900 dark:bg-indigo-600 dark:border-indigo-600'
+                      : 'bg-white hover:bg-neutral-50 text-neutral-700 border-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700 shadow-2xs'
+                  }`}
                 >
-                  {lang}
+                  {item.name}
                 </button>
               ))}
             </div>
@@ -90,28 +103,49 @@ export function HomeView({
         </div>
       </section>
 
-      {/* Featured / Popular Fonts Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-neutral-200 pb-4">
+      {/* Slim 1-Line Trust Bar */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-neutral-50 dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 rounded-2xl py-3 px-4 sm:px-6 flex flex-wrap items-center justify-around gap-3 text-xs text-neutral-700 dark:text-neutral-300">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span className="font-semibold">SIL Open Font License & Free Use</span>
+          </div>
+          <div className="hidden sm:inline-block text-neutral-300 dark:text-neutral-700">•</div>
+          <div className="flex items-center gap-2">
+            <Zap className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span className="font-semibold">Direct TTF / OTF Downloads</span>
+          </div>
+          <div className="hidden sm:inline-block text-neutral-300 dark:text-neutral-700">•</div>
+          <div className="flex items-center gap-2">
+            <Globe2 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span className="font-semibold">5 Script Families & Zero Registration</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Fonts Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+        <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-3">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">
               Featured Typefaces
             </h2>
-            <p className="text-neutral-500 text-sm mt-1">
-              Hand-picked professional fonts with lightning-fast download links
+            <p className="text-neutral-500 dark:text-neutral-400 text-xs">
+              Hand-picked verified fonts ready for instant preview and download
             </p>
           </div>
           <button
+            type="button"
             onClick={() => navigate('fonts')}
-            className="flex items-center gap-2 text-sm font-bold text-indigo-600 hover:text-indigo-700 transition-colors cursor-pointer group"
+            className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors cursor-pointer group"
           >
-            <span>Browse Full Library</span>
-            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+            <span>All Fonts</span>
+            <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" />
           </button>
         </div>
 
         {/* Font Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredFonts.slice(0, 6).map((font) => (
             <FontCard
               key={font.id}
@@ -125,107 +159,12 @@ export function HomeView({
         </div>
       </section>
 
-      {/* Ad Placeholder 1 */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AdPlaceholder size="banner" />
-      </div>
-
-      {/* Live Font Preview Studio Section */}
+      {/* Compact Interactive Live Preview Studio */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900">
-            Interactive Font Preview Studio
-          </h2>
-          <p className="text-neutral-600 text-sm mt-2">
-            Test any typography combination in real time before downloading.
-          </p>
-        </div>
         <LivePreviewTool fonts={fonts} onSelectFont={onSelectFont} onDownload={onDownload} />
       </section>
 
-      {/* Language Categories Showcase */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="border-b border-neutral-200 pb-4">
-          <h2 className="text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight">
-            Explore by Language & Script
-          </h2>
-          <p className="text-neutral-500 text-sm mt-1">
-            Specialized typographic collections for South Asian and Middle Eastern publishing
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {LANGUAGES.map((lang) => {
-            const count = fonts.filter((f) => f.language === lang).length;
-            return (
-              <div
-                key={lang}
-                onClick={() => navigate('fonts', { language: lang })}
-                className="bg-white p-6 rounded-2xl border border-neutral-200/90 shadow-2xs hover:shadow-lg transition-all cursor-pointer group flex flex-col justify-between hover:border-indigo-300"
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                    {lang.charAt(0)}
-                  </div>
-                  <h3 className="font-bold text-neutral-900 text-lg group-hover:text-indigo-600 transition-colors">
-                    {lang} Fonts
-                  </h3>
-                  <p className="text-xs text-neutral-500 mt-1">
-                    {count} professional typefaces available
-                  </p>
-                </div>
-                <div className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-indigo-600">
-                  <span>Explore {lang}</span>
-                  <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Trust & Features Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-        <div className="bg-indigo-50/70 border border-indigo-100 rounded-3xl p-8 sm:p-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md">
-              <ShieldCheck className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-bold text-neutral-900 text-lg">100% Free & Open License</h3>
-              <p className="text-neutral-600 text-sm mt-1">
-                All fonts featured on Fontora are cleared under SIL Open Font License for commercial and personal projects.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md">
-              <Globe className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-bold text-neutral-900 text-lg">Multilingual Mastery</h3>
-              <p className="text-neutral-600 text-sm mt-1">
-                Specialized support for Nastaleeq, Arabic Calligraphy, Devanagari, and Roman Urdu typesetting.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md">
-              <Download className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="font-bold text-neutral-900 text-lg">Instant TTF / WOFF Download</h3>
-              <p className="text-neutral-600 text-sm mt-1">
-                Download actual font files immediately with zero friction, sign-ups, or hidden redirects.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SEO Helpful Content Section */}
+      {/* SEO Helpful Content Section - Compact Bilingual */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SeoHelpfulContent />
       </section>

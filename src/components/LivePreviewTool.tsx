@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Font } from '../data/fonts';
-import { Type, Sliders, RotateCcw, Copy, Check, AlignLeft, AlignCenter, AlignRight, Bold, Download } from 'lucide-react';
+import { Type, RotateCcw, Copy, Check, AlignLeft, AlignCenter, AlignRight, Bold, Download } from 'lucide-react';
 
 interface LivePreviewToolProps {
   fonts: Font[];
@@ -27,10 +27,9 @@ export function LivePreviewTool({ fonts, selectedFontId, onSelectFont, onDownloa
       : 'Type your custom typography preview here and experience perfection.';
 
   const [customText, setCustomText] = useState(defaultSampleText);
-  const [fontSize, setFontSize] = useState(36);
+  const [fontSize, setFontSize] = useState(32);
   const [isBold, setIsBold] = useState(false);
   const [letterSpacing, setLetterSpacing] = useState(0);
-  const [lineHeight, setLineHeight] = useState(1.6);
   const [textAlign, setTextAlign] = useState<'left' | 'center' | 'right'>('center');
   const [copied, setCopied] = useState(false);
 
@@ -44,10 +43,9 @@ export function LivePreviewTool({ fonts, selectedFontId, onSelectFont, onDownloa
 
   const handleReset = () => {
     setCustomText(currentFont.previewText);
-    setFontSize(36);
+    setFontSize(32);
     setIsBold(false);
     setLetterSpacing(0);
-    setLineHeight(1.6);
     setTextAlign('center');
   };
 
@@ -60,27 +58,25 @@ export function LivePreviewTool({ fonts, selectedFontId, onSelectFont, onDownloa
   const isRTL = currentFont.language === 'Urdu' || currentFont.language === 'Arabic';
 
   return (
-    <div className="bg-white rounded-3xl border border-neutral-200/90 shadow-xl overflow-hidden my-8">
-      {/* Tool Header */}
-      <div className="bg-neutral-900 text-white p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-indigo-400 font-semibold text-xs uppercase tracking-wider mb-1">
-            <Type className="w-4 h-4" />
-            Interactive Playground
+    <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/90 dark:border-neutral-800 shadow-sm overflow-hidden my-4">
+      {/* Compact Tool Header */}
+      <div className="bg-neutral-900 dark:bg-neutral-900 text-white px-5 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-neutral-800">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-indigo-600/90 flex items-center justify-center text-white shrink-0">
+            <Type className="w-3.5 h-3.5" />
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold">Live Font Preview Studio</h2>
-          <p className="text-neutral-400 text-sm mt-1">
-            Test any custom text across Urdu, Arabic, Hindi, English, and Roman Urdu fonts instantly.
-          </p>
+          <div>
+            <h2 className="text-base font-bold text-white">Live Font Tester</h2>
+            <p className="text-neutral-400 text-xs">Preview typefaces with live custom text</p>
+          </div>
         </div>
 
-        {/* Font Selector Dropdown & Download Button */}
-        <div className="flex flex-wrap items-center gap-3">
-          <label className="text-xs text-neutral-400 font-medium hidden sm:inline">Selected Font:</label>
+        {/* Font Selector & Action */}
+        <div className="flex items-center gap-2.5">
           <select
             value={activeFontId}
             onChange={(e) => handleFontChange(e.target.value)}
-            className="bg-neutral-800 text-white border border-neutral-700 rounded-xl px-4 py-2.5 text-sm font-medium focus:outline-hidden focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+            className="bg-neutral-800 text-white border border-neutral-700 rounded-xl px-3 py-1.5 text-xs font-medium focus:outline-hidden focus:ring-1 focus:ring-indigo-500 cursor-pointer"
           >
             {fonts.map((f) => (
               <option key={f.id} value={f.id}>
@@ -91,179 +87,136 @@ export function LivePreviewTool({ fonts, selectedFontId, onSelectFont, onDownloa
 
           {onDownload && (
             <button
+              type="button"
               onClick={(e) => onDownload(currentFont, e)}
-              className="flex items-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs sm:text-sm font-bold shadow-md transition-all cursor-pointer hover:scale-105 active:scale-95"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-xs transition-colors cursor-pointer"
               title={`Download ${currentFont.name}`}
             >
-              <Download className="w-4 h-4" />
-              <span>Download {currentFont.name}</span>
+              <Download className="w-3.5 h-3.5" />
+              <span>Download</span>
             </button>
           )}
         </div>
       </div>
 
-      {/* Controls Bar */}
-      <div className="bg-neutral-50 border-b border-neutral-200 p-4 sm:p-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-        {/* Font Size */}
-        <div className="space-y-1.5 col-span-1 sm:col-span-1">
-          <div className="flex justify-between text-xs text-neutral-600 font-semibold">
-            <span>Size</span>
-            <span>{fontSize}px</span>
-          </div>
+      {/* Compact Controls Toolbar */}
+      <div className="bg-neutral-50 dark:bg-neutral-900/80 border-b border-neutral-200 dark:border-neutral-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs">
+        {/* Size Slider */}
+        <div className="flex items-center gap-2">
+          <span className="font-semibold text-neutral-600 dark:text-neutral-300 text-[11px] uppercase tracking-wider">Size:</span>
           <input
             type="range"
-            min="20"
-            max="72"
+            min="18"
+            max="64"
             value={fontSize}
             onChange={(e) => setFontSize(Number(e.target.value))}
-            className="w-full accent-indigo-600 cursor-pointer"
+            className="w-24 sm:w-32 accent-indigo-600 cursor-pointer h-1.5"
           />
+          <span className="text-neutral-500 dark:text-neutral-400 font-mono text-[11px] w-8">{fontSize}px</span>
         </div>
 
-        {/* Letter Spacing */}
-        <div className="space-y-1.5 col-span-1 sm:col-span-1">
-          <div className="flex justify-between text-xs text-neutral-600 font-semibold">
-            <span>Tracking</span>
-            <span>{letterSpacing}px</span>
-          </div>
-          <input
-            type="range"
-            min="-2"
-            max="12"
-            value={letterSpacing}
-            onChange={(e) => setLetterSpacing(Number(e.target.value))}
-            className="w-full accent-indigo-600 cursor-pointer"
-          />
-        </div>
-
-        {/* Line Height */}
-        <div className="space-y-1.5 col-span-1 sm:col-span-1">
-          <div className="flex justify-between text-xs text-neutral-600 font-semibold">
-            <span>Line Height</span>
-            <span>{lineHeight}</span>
-          </div>
-          <input
-            type="range"
-            min="1.1"
-            max="2.5"
-            step="0.1"
-            value={lineHeight}
-            onChange={(e) => setLineHeight(Number(e.target.value))}
-            className="w-full accent-indigo-600 cursor-pointer"
-          />
-        </div>
-
-        {/* Text Alignment */}
-        <div className="space-y-1.5 col-span-1 sm:col-span-1">
-          <span className="text-xs text-neutral-600 font-semibold block">Alignment</span>
-          <div className="flex items-center bg-white border border-neutral-200 rounded-xl p-1 shadow-2xs">
-            <button
-              onClick={() => setTextAlign('left')}
-              className={`flex-1 p-1.5 rounded-lg flex items-center justify-center transition-colors ${
-                textAlign === 'left' ? 'bg-indigo-600 text-white' : 'text-neutral-600 hover:bg-neutral-100'
-              }`}
-              title="Align Left"
-            >
-              <AlignLeft className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={() => setTextAlign('center')}
-              className={`flex-1 p-1.5 rounded-lg flex items-center justify-center transition-colors ${
-                textAlign === 'center' ? 'bg-indigo-600 text-white' : 'text-neutral-600 hover:bg-neutral-100'
-              }`}
-              title="Align Center"
-            >
-              <AlignCenter className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={() => setTextAlign('right')}
-              className={`flex-1 p-1.5 rounded-lg flex items-center justify-center transition-colors ${
-                textAlign === 'right' ? 'bg-indigo-600 text-white' : 'text-neutral-600 hover:bg-neutral-100'
-              }`}
-              title="Align Right"
-            >
-              <AlignRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
+        {/* Alignment */}
+        <div className="flex items-center gap-1 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg p-0.5">
+          <button
+            type="button"
+            onClick={() => setTextAlign('left')}
+            className={`p-1 rounded flex items-center justify-center transition-colors ${
+              textAlign === 'left' ? 'bg-indigo-600 text-white' : 'text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700'
+            }`}
+            title="Align Left"
+          >
+            <AlignLeft className="w-3.5 h-3.5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setTextAlign('center')}
+            className={`p-1 rounded flex items-center justify-center transition-colors ${
+              textAlign === 'center' ? 'bg-indigo-600 text-white' : 'text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700'
+            }`}
+            title="Align Center"
+          >
+            <AlignCenter className="w-3.5 h-3.5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setTextAlign('right')}
+            className={`p-1 rounded flex items-center justify-center transition-colors ${
+              textAlign === 'right' ? 'bg-indigo-600 text-white' : 'text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-700'
+            }`}
+            title="Align Right"
+          >
+            <AlignRight className="w-3.5 h-3.5" />
+          </button>
         </div>
 
         {/* Bold Toggle */}
-        <div className="space-y-1.5 col-span-1 sm:col-span-1">
-          <span className="text-xs text-neutral-600 font-semibold block">Style</span>
-          <button
-            onClick={() => setIsBold(!isBold)}
-            className={`w-full py-2 px-3 rounded-xl border flex items-center justify-center gap-1.5 text-xs font-semibold transition-all ${
-              isBold
-                ? 'bg-indigo-600 text-white border-indigo-600'
-                : 'bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-100'
-            }`}
-          >
-            <Bold className="w-3.5 h-3.5" />
-            <span>{isBold ? 'Bold Active' : 'Regular'}</span>
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() => setIsBold(!isBold)}
+          className={`px-2 py-1 rounded-lg border text-xs font-semibold flex items-center gap-1 transition-colors ${
+            isBold
+              ? 'bg-indigo-600 text-white border-indigo-600'
+              : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-700'
+          }`}
+        >
+          <Bold className="w-3 h-3" />
+          <span>Bold</span>
+        </button>
 
-        {/* Actions: Copy & Reset */}
-        <div className="space-y-1.5 col-span-2 sm:col-span-1 flex items-end gap-2">
+        {/* Quick Actions: Copy & Reset */}
+        <div className="flex items-center gap-1.5">
           <button
+            type="button"
             onClick={handleCopyText}
-            className="flex-1 py-2 px-3 bg-white hover:bg-neutral-100 text-neutral-700 border border-neutral-200 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-2xs"
-            title="Copy preview text"
+            className="px-2.5 py-1 bg-white dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors shadow-2xs"
+            title="Copy text"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
             <span>{copied ? 'Copied' : 'Copy'}</span>
           </button>
           <button
+            type="button"
             onClick={handleReset}
-            className="p-2 bg-white hover:bg-neutral-100 text-neutral-500 border border-neutral-200 rounded-xl transition-colors shadow-2xs"
-            title="Reset controls"
+            className="p-1.5 bg-white dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-500 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700 rounded-lg transition-colors shadow-2xs"
+            title="Reset"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="w-3 h-3" />
           </button>
         </div>
       </div>
 
-      {/* Input Area */}
-      <div className="p-6 bg-white border-b border-neutral-200">
-        <label className="text-xs font-semibold text-neutral-500 uppercase tracking-wider block mb-2">
-          Type Your Custom Text Here:
-        </label>
-        <textarea
-          rows={2}
+      {/* Compact Input Box */}
+      <div className="p-3 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
+        <input
+          type="text"
           value={customText}
           onChange={(e) => setCustomText(e.target.value)}
-          placeholder="Type or paste any text here to preview..."
-          className="w-full bg-neutral-50 border border-neutral-200 rounded-2xl p-4 text-neutral-800 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 text-base sm:text-lg resize-none shadow-inner"
+          placeholder="Type or paste custom text to preview..."
+          className="w-full bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl px-3 py-2 text-neutral-800 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 text-sm shadow-inner"
           dir={isRTL ? 'rtl' : 'ltr'}
         />
       </div>
 
-      {/* Live Preview Display Box */}
-      <div className="p-8 sm:p-12 bg-white min-h-[220px] flex items-center justify-center overflow-x-auto relative">
+      {/* Compact Live Display Pane */}
+      <div className="p-6 bg-white dark:bg-neutral-950 min-h-[110px] max-h-[180px] flex items-center justify-center overflow-x-auto relative">
         <div
-          className={`w-full text-neutral-900 transition-all ${
-            textAlign === 'left'
-              ? 'text-left'
-              : textAlign === 'right'
-              ? 'text-right'
-              : 'text-center'
+          className={`w-full text-neutral-900 dark:text-neutral-100 transition-all ${
+            textAlign === 'left' ? 'text-left' : textAlign === 'right' ? 'text-right' : 'text-center'
           }`}
           style={{
             fontFamily: currentFont.cssFontFamily,
             fontSize: `${fontSize}px`,
             fontWeight: isBold ? 700 : 400,
             letterSpacing: `${letterSpacing}px`,
-            lineHeight: lineHeight,
+            lineHeight: 1.4,
           }}
           dir={isRTL ? 'rtl' : 'ltr'}
         >
-          {customText || 'Start typing above to preview...'}
+          {customText || 'Type above to preview font...'}
         </div>
 
-        <div className="absolute bottom-3 right-4 flex items-center gap-2 text-xs text-neutral-400 bg-neutral-100 px-3 py-1 rounded-full border border-neutral-200 font-mono">
-          <span>{currentFont.name}</span>
-          <span>•</span>
-          <span>{currentFont.language}</span>
+        <div className="absolute bottom-2 right-3 text-[10px] text-neutral-400 dark:text-neutral-400 bg-neutral-100/90 dark:bg-neutral-900/90 px-2 py-0.5 rounded-full border border-neutral-200 dark:border-neutral-800 font-mono">
+          {currentFont.name} • {currentFont.language}
         </div>
       </div>
     </div>

@@ -36,23 +36,23 @@ export function SearchModal({ isOpen, onClose, fonts, onSelectFont }: SearchModa
   return (
     <div className="fixed inset-0 z-50 bg-neutral-900/60 backdrop-blur-xs flex items-start justify-center pt-16 sm:pt-24 px-4 animate-in fade-in duration-200">
       <div 
-        className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl border border-neutral-200 overflow-hidden animate-in zoom-in-95 duration-200"
+        className="bg-white dark:bg-neutral-900 w-full max-w-2xl rounded-3xl shadow-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Header */}
-        <div className="flex items-center px-6 py-4 border-b border-neutral-200 gap-3">
-          <Search className="w-5 h-5 text-indigo-600" />
+        <div className="flex items-center px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 gap-3">
+          <Search className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search fonts by name, language (Urdu, Arabic, etc.), or category..."
-            className="w-full bg-transparent text-neutral-900 placeholder:text-neutral-400 text-lg font-medium focus:outline-hidden"
+            className="w-full bg-transparent text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 text-lg font-medium focus:outline-hidden"
           />
           <button
             onClick={onClose}
-            className="p-1.5 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 rounded-xl transition-colors"
+            className="p-1.5 text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-xl transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -60,7 +60,7 @@ export function SearchModal({ isOpen, onClose, fonts, onSelectFont }: SearchModa
 
         {/* Results List */}
         <div className="max-h-[60vh] overflow-y-auto p-4 space-y-2">
-          <div className="text-xs font-semibold text-neutral-400 px-3 py-1 uppercase tracking-wider flex items-center justify-between">
+          <div className="text-xs font-semibold text-neutral-400 dark:text-neutral-500 px-3 py-1 uppercase tracking-wider flex items-center justify-between">
             <span>{query.trim() === '' ? 'Popular Recommendations' : `Matching Results (${filteredFonts.length})`}</span>
             <span className="flex items-center gap-1 text-[10px] text-neutral-400">
               <Sparkles className="w-3 h-3 text-indigo-500" /> Instant Search
@@ -68,7 +68,7 @@ export function SearchModal({ isOpen, onClose, fonts, onSelectFont }: SearchModa
           </div>
 
           {filteredFonts.length === 0 ? (
-            <div className="py-12 text-center text-neutral-500">
+            <div className="py-12 text-center text-neutral-500 dark:text-neutral-400">
               <p className="font-medium text-base">No fonts found matching "{query}"</p>
               <p className="text-xs text-neutral-400 mt-1">Try searching for "Nastaleeq", "Arabic", "Serif", or "Poppins"</p>
             </div>
@@ -80,22 +80,22 @@ export function SearchModal({ isOpen, onClose, fonts, onSelectFont }: SearchModa
                   onSelectFont(font);
                   onClose();
                 }}
-                className="group flex items-center justify-between p-3.5 rounded-2xl hover:bg-indigo-50/70 border border-transparent hover:border-indigo-100 cursor-pointer transition-all"
+                className="group flex items-center justify-between p-3.5 rounded-2xl hover:bg-indigo-50/70 dark:hover:bg-indigo-950/60 border border-transparent hover:border-indigo-100 dark:hover:border-indigo-800 cursor-pointer transition-all"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 text-[10px] font-semibold rounded-full">
+                    <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 dark:bg-indigo-950/80 dark:text-indigo-300 text-[10px] font-semibold rounded-full">
                       {font.language}
                     </span>
-                    <span className="px-2 py-0.5 bg-neutral-200 text-neutral-700 text-[10px] font-medium rounded-full">
+                    <span className="px-2 py-0.5 bg-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300 text-[10px] font-medium rounded-full">
                       {font.category}
                     </span>
                   </div>
-                  <h4 className="font-bold text-neutral-900 group-hover:text-indigo-600 transition-colors text-base">
+                  <h4 className="font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors text-base">
                     {font.name}
                   </h4>
                   <p 
-                    className="text-sm text-neutral-600 line-clamp-1" 
+                    className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-1" 
                     style={{ fontFamily: font.cssFontFamily }}
                   >
                     {font.previewText}
@@ -110,7 +110,7 @@ export function SearchModal({ isOpen, onClose, fonts, onSelectFont }: SearchModa
         </div>
 
         {/* Footer info */}
-        <div className="bg-neutral-50 px-6 py-3 border-t border-neutral-200 flex items-center justify-between text-xs text-neutral-500">
+        <div className="bg-neutral-50 dark:bg-neutral-950 px-6 py-3 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
           <span>Press ESC to close</span>
           <span>Fontora Directory v2.4</span>
         </div>

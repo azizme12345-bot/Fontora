@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Font } from '../data/fonts';
 import { FontCard } from '../components/FontCard';
-import { AdPlaceholder } from '../components/AdPlaceholder';
 import { Heart, Download, Copy, Check, ArrowLeft, ShieldCheck, User, FileText, HardDrive, Sparkles } from 'lucide-react';
 
 interface FontDetailViewProps {
@@ -226,9 +225,6 @@ export function FontDetailView({
           </div>
         </div>
       </div>
-
-      {/* Typography Guide Banner */}
-      <AdPlaceholder size="banner" />
 
       {/* Related Fonts */}
       {relatedFonts.length > 0 && (

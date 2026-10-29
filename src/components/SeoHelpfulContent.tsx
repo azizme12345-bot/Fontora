@@ -1,76 +1,70 @@
 export function SeoHelpfulContent() {
   return (
-    <div className="fontora-seo-content max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mt-16 border-t border-neutral-200 text-neutral-700 space-y-12 bg-white rounded-3xl shadow-xs">
-      {/* About Section */}
-      <div className="space-y-4">
-        <h2 className="text-2xl sm:text-3xl font-black text-neutral-900 tracking-tight">
-          About Fontora & Multilingual Typography / فونٹورا اور ملٹی لسانی ٹائپوگرافی کا تعارف
+    <div className="fontora-seo-content bg-white dark:bg-neutral-900 border border-neutral-200/90 dark:border-neutral-800 rounded-2xl p-6 sm:p-8 mt-6 text-neutral-700 dark:text-neutral-300 space-y-6 shadow-xs">
+      {/* About Section - Compact Bilingual */}
+      <div className="space-y-3">
+        <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight">
+          About Fontora & Multilingual Typography / فونٹورا اور ٹائپوگرافی کا تعارف
         </h2>
-        <p className="leading-relaxed text-sm sm:text-base text-neutral-600">
-          Fontora is the premier typography discovery platform built for graphic designers, content creators, and publishers worldwide. Whether you are crafting Urdu poetry banners, Arabic Islamic art, Hindi social media posts, or English branding headers, our platform delivers an exceptional <strong>Modern Font Preview</strong> experience. Powered by an advanced <strong>Unicode Font Converter</strong> and <strong>Stylish Text Generator</strong>, designers can test ligatures, font weights, and character spacing instantly before downloading verified Open-Source and Community typefaces.
-        </p>
-        <p className="leading-relaxed text-sm sm:text-base rtl text-right text-neutral-600" dir="rtl">
-          فونٹورا گرافک ڈیزائنرز، مواد تخلیق کاروں اور پبلشرز کے لیے دنیا کا بہترین ٹائپوگرافی ڈسکوری پلیٹ فارم ہے۔ چاہے آپ اردو شاعری کے بینرز بنا رہے ہوں، عربی اسلامی خطاطی، ہندی سوشل میڈیا پوسٹس یا انگریزی برانڈنگ، ہمارا پلیٹ فارم آپ کو جدید ترین <strong>Modern Font Preview</strong> فراہم کرتا ہے۔ طاقتور <strong>Unicode Font Converter</strong> اور <strong>Stylish Text Generator</strong> کی مدد سے آپ ڈاؤن لوڈ کرنے سے پہلے کسی بھی فونٹ کا لائیو تجربہ کر سکتے ہیں۔
-        </p>
-      </div>
-
-      {/* How to Use Section */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold text-neutral-900">
-          How to Use Fontora / فونٹورا کو استعمال کرنے کا طریقہ
-        </h2>
-        <ul className="list-disc pl-5 space-y-2 text-sm sm:text-base text-neutral-600">
-          <li><strong>Step 1: Browse or Search:</strong> Explore our extensive library of over 140+ fonts across Urdu (Nastaleeq/Naskh), Arabic, Hindi, English, and Roman Urdu.</li>
-          <li><strong>Step 2: Interactive Testing:</strong> Use our live typography studio to type custom phrases, adjust font size, tracking, and alignment.</li>
-          <li><strong>Step 3: One-Click Download:</strong> Download verified font files (TTF/OTF) instantly with a single click for your professional design software.</li>
-        </ul>
-        <div className="rtl text-right space-y-2 text-sm sm:text-base text-neutral-600 pt-2" dir="rtl">
-          <p><strong>مرحلہ 1: تلاش اور براؤزنگ:</strong> اردو (نستعلیق/نسخ)، عربی، ہندی، انگریزی اور رومن اردو کے 140 سے زائد فونٹس میں سے اپنی پسند کا فونٹ منتخب کریں۔</p>
-          <p><strong>مرحلہ 2: لائیو ٹیسٹنگ:</strong> ہمارے انٹرایکٹو اسوڈیو میں اپنا متن درج کریں اور سائز، اسٹائل یا الائنمنٹ چیک کریں۔</p>
-          <p><strong>مرحلہ 3: ایک کلک میں ڈاؤن لوڈ:</strong> اپنے ڈیزائننگ سافٹ ویئر کے لیے تصدیق شدہ فونٹ فائل (TTF/OTF) فوراً ڈاؤن لوڈ کریں۔</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+          <p>
+            Fontora is a curated typography platform built for graphic designers, digital publishers, and web creators. Delivering a responsive <strong>Modern Font Preview</strong> engine, a high-fidelity <strong>Unicode Font Converter</strong>, and a dynamic <strong>Stylish Text Generator</strong>, Fontora enables instant ligature and weight testing for Urdu Nastaleeq, Arabic, Hindi, English, and Roman Urdu fonts before direct one-click downloading.
+          </p>
+          <p className="rtl text-right" dir="rtl">
+            فونٹورا گرافک ڈیزائنرز، پبلشرز اور ڈیجیٹل تخلیق کاروں کے لیے ایک جدید ٹائپوگرافی پلیٹ فارم ہے۔ یہاں آپ <strong>Modern Font Preview</strong>، طاقتور <strong>Unicode Font Converter</strong> اور <strong>Stylish Text Generator</strong> کے ذریعے اردو، عربی، ہندی، انگریزی اور رومن اردو فونٹس کو ڈاؤن لوڈ کرنے سے پہلے براہِ راست ٹیسٹ کر سکتے ہیں۔
+          </p>
         </div>
       </div>
 
-      {/* FAQ Section */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold text-neutral-900">
+      {/* How to Use Section - Concise Steps */}
+      <div className="border-t border-neutral-100 dark:border-neutral-800 pt-5 space-y-3">
+        <h3 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-neutral-100">
+          How to Use / استعمال کا طریقہ
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm">
+          <div className="bg-neutral-50 dark:bg-neutral-950 p-3.5 rounded-xl border border-neutral-200/80 dark:border-neutral-800">
+            <span className="font-bold text-indigo-600 dark:text-indigo-400 block mb-1">1. Browse & Filter</span>
+            <p className="text-neutral-600 dark:text-neutral-400">Select Urdu, Arabic, Hindi, English, or Roman Urdu categories.</p>
+          </div>
+          <div className="bg-neutral-50 dark:bg-neutral-950 p-3.5 rounded-xl border border-neutral-200/80 dark:border-neutral-800">
+            <span className="font-bold text-indigo-600 dark:text-indigo-400 block mb-1">2. Live Preview</span>
+            <p className="text-neutral-600 dark:text-neutral-400">Type custom text, adjust size, alignment, and review ligatures.</p>
+          </div>
+          <div className="bg-neutral-50 dark:bg-neutral-950 p-3.5 rounded-xl border border-neutral-200/80 dark:border-neutral-800">
+            <span className="font-bold text-indigo-600 dark:text-indigo-400 block mb-1">3. Direct Download</span>
+            <p className="text-neutral-600 dark:text-neutral-400">Download verified TTF/OTF files with zero ads, redirects, or wait times.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* FAQ Section - Compact 2x2 Grid */}
+      <div className="border-t border-neutral-100 dark:border-neutral-800 pt-5 space-y-3">
+        <h3 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-neutral-100">
           Frequently Asked Questions (FAQ) / اکثر پوچھے گئے سوالات
-        </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-neutral-50 p-6 rounded-2xl border border-neutral-200 space-y-2">
-            <h3 className="font-bold text-neutral-900 text-base">
-              1. Are these fonts free for commercial use? / کیا یہ فونٹس تجارتی استعمال کے لیے مفت ہیں؟
-            </h3>
-            <p className="text-sm text-neutral-600">
-              Yes! Most typefaces cataloged on Fontora are distributed under open-source licenses such as SIL Open Font License 1.1 or Apache 2.0, allowing personal and commercial projects.
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+          <div className="bg-neutral-50 dark:bg-neutral-950 p-3.5 rounded-xl border border-neutral-200/80 dark:border-neutral-800">
+            <h4 className="font-bold text-neutral-900 dark:text-neutral-100 mb-1">1. Commercial Use License?</h4>
+            <p className="text-neutral-600 dark:text-neutral-400 text-xs">
+              Fonts cataloged under the SIL Open Font License (OFL) or Apache 2.0 are free for personal and commercial projects.
             </p>
           </div>
-
-          <div className="bg-neutral-50 p-6 rounded-2xl border border-neutral-200 space-y-2">
-            <h3 className="font-bold text-neutral-900 text-base">
-              2. How does the Unicode Font Converter work? / یونیکوڈ فونٹ کنورٹر کیسے کام کرتا ہے؟
-            </h3>
-            <p className="text-sm text-neutral-600">
-              Our preview engine renders standard Unicode text dynamically using robust web font files, ensuring zero character corruption across all modern operating systems.
+          <div className="bg-neutral-50 dark:bg-neutral-950 p-3.5 rounded-xl border border-neutral-200/80 dark:border-neutral-800">
+            <h4 className="font-bold text-neutral-900 dark:text-neutral-100 mb-1">2. Unicode Font Converter Accuracy?</h4>
+            <p className="text-neutral-600 dark:text-neutral-400 text-xs">
+              Our renderer handles full UTF-8 encoding without ligature fragmentation on Windows, macOS, iOS, and Android.
             </p>
           </div>
-
-          <div className="bg-neutral-50 p-6 rounded-2xl border border-neutral-200 space-y-2">
-            <h3 className="font-bold text-neutral-900 text-base">
-              3. Can I use Fontora fonts in Adobe Photoshop and Premiere? / کیا میں ایڈوب فوٹوشاپ میں یہ فونٹس استعمال کر سکتا ہوں؟
-            </h3>
-            <p className="text-sm text-neutral-600">
-              Absolutely. Once downloaded and installed on your Windows or macOS system, the fonts appear natively in Photoshop, Illustrator, Premiere Pro, and Microsoft Word.
+          <div className="bg-neutral-50 dark:bg-neutral-950 p-3.5 rounded-xl border border-neutral-200/80 dark:border-neutral-800">
+            <h4 className="font-bold text-neutral-900 dark:text-neutral-100 mb-1">3. Adobe & Office Compatibility?</h4>
+            <p className="text-neutral-600 dark:text-neutral-400 text-xs">
+              All downloaded TTF/OTF fonts install into system fonts and work natively in Photoshop, Premiere, InDesign, and Word.
             </p>
           </div>
-
-          <div className="bg-neutral-50 p-6 rounded-2xl border border-neutral-200 space-y-2">
-            <h3 className="font-bold text-neutral-900 text-base">
-              4. Do I need an account or software installation to preview? / کیا پیشگی رجسٹریشن یا سافٹ ویئر کی ضرورت ہے؟
-            </h3>
-            <p className="text-sm text-neutral-600">
-              No registration or login is required. You can preview, test, and download fonts instantly right inside your web browser.
+          <div className="bg-neutral-50 dark:bg-neutral-950 p-3.5 rounded-xl border border-neutral-200/80 dark:border-neutral-800">
+            <h4 className="font-bold text-neutral-900 dark:text-neutral-100 mb-1">4. Registration or Installation Needed?</h4>
+            <p className="text-neutral-600 dark:text-neutral-400 text-xs">
+              No registration or account is required. All interactive previews and font downloads are completely client-side.
             </p>
           </div>
         </div>

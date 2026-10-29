@@ -3,7 +3,6 @@ import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import { FONTS_DATA } from './src/data/fonts.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -22,21 +21,25 @@ async function startServer() {
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
     xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
     
-    const staticPages = ['', 'fonts', 'categories', 'favorites', 'about'];
-    staticPages.forEach(page => {
+    const corePages = [
+      { path: '', priority: '1.0', changefreq: 'daily' },
+      { path: 'fonts', priority: '0.9', changefreq: 'daily' },
+      { path: 'categories', priority: '0.8', changefreq: 'weekly' },
+      { path: 'popular-fonts', priority: '0.9', changefreq: 'daily' },
+      { path: 'urdu-fonts', priority: '0.9', changefreq: 'weekly' },
+      { path: 'arabic-fonts', priority: '0.9', changefreq: 'weekly' },
+      { path: 'hindi-fonts', priority: '0.8', changefreq: 'weekly' },
+      { path: 'english-fonts', priority: '0.8', changefreq: 'weekly' },
+      { path: 'roman-urdu-fonts', priority: '0.8', changefreq: 'weekly' },
+      { path: 'about', priority: '0.7', changefreq: 'monthly' },
+      { path: 'privacy-policy', priority: '0.6', changefreq: 'monthly' },
+      { path: 'contact', priority: '0.7', changefreq: 'monthly' },
+    ];
+    corePages.forEach(page => {
       xml += `  <url>\n`;
-      xml += `    <loc>${baseUrl}/${page}</loc>\n`;
-      xml += `    <changefreq>daily</changefreq>\n`;
-      xml += `    <priority>${page === '' ? '1.0' : '0.8'}</priority>\n`;
-      xml += `  </url>\n`;
-    });
-
-    FONTS_DATA.forEach(font => {
-      xml += `  <url>\n`;
-      xml += `    <loc>${baseUrl}/fonts/${font.slug}</loc>\n`;
-      xml += `    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>\n`;
-      xml += `    <changefreq>weekly</changefreq>\n`;
-      xml += `    <priority>0.9</priority>\n`;
+      xml += `    <loc>${baseUrl}/${page.path}</loc>\n`;
+      xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
+      xml += `    <priority>${page.priority}</priority>\n`;
       xml += `  </url>\n`;
     });
 

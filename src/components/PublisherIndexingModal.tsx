@@ -65,11 +65,11 @@ export function PublisherIndexingModal({ isOpen, onClose }: PublisherIndexingMod
   return (
     <div className="fixed inset-0 z-50 bg-neutral-900/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200">
       <div 
-        className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl border border-neutral-200 overflow-hidden animate-in zoom-in-95 duration-200"
+        className="bg-white dark:bg-neutral-900 w-full max-w-2xl rounded-3xl shadow-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="bg-neutral-900 text-white p-6 flex items-center justify-between">
+        <div className="bg-neutral-900 dark:bg-neutral-900 text-white p-6 flex items-center justify-between border-b border-neutral-800">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-md">
               <Globe className="w-5 h-5" />
@@ -92,43 +92,43 @@ export function PublisherIndexingModal({ isOpen, onClose }: PublisherIndexingMod
         {/* Content */}
         <div className="p-6 sm:p-8 space-y-6 max-h-[75vh] overflow-y-auto">
           {/* Step 1: Google Search Console Verification */}
-          <div className="bg-neutral-50 p-6 rounded-2xl border border-neutral-200 space-y-4">
-            <div className="flex items-center gap-2 text-neutral-900 font-bold text-base">
-              <ShieldCheck className="w-5 h-5 text-indigo-600" />
+          <div className="bg-neutral-50 dark:bg-neutral-950 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 space-y-4">
+            <div className="flex items-center gap-2 text-neutral-900 dark:text-neutral-100 font-bold text-base">
+              <ShieldCheck className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               <span>1. Google Search Console Ownership Verification</span>
             </div>
-            <p className="text-xs text-neutral-600 leading-relaxed">
-              Google Search Console verifies site ownership directly from server responses. Fontora includes a pre-configured server verification tag in <code className="bg-white px-1 py-0.5 rounded border border-neutral-200 font-mono text-[11px]">index.html</code> and <code className="bg-white px-1 py-0.5 rounded border border-neutral-200 font-mono text-[11px]">src/config/seoConfig.ts</code>. You can also test and preview your verification code locally below.
+            <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+              Google Search Console verifies site ownership directly from server responses. Fontora includes a pre-configured server verification tag in <code className="bg-white dark:bg-neutral-900 px-1 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-mono text-[11px]">index.html</code> and <code className="bg-white dark:bg-neutral-900 px-1 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-mono text-[11px]">src/config/seoConfig.ts</code>. You can also test and preview your verification code locally below.
             </p>
 
             <form onSubmit={handleSave} className="space-y-3">
               <div>
-                <label className="text-xs font-semibold text-neutral-700 block mb-1">
-                  Verification Code or Content String (e.g. <code className="bg-white px-1.5 py-0.5 rounded border border-neutral-200 font-mono text-[11px]">abc123xyz...</code>)
+                <label className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 block mb-1">
+                  Verification Code or Content String (e.g. <code className="bg-white dark:bg-neutral-900 px-1.5 py-0.5 rounded border border-neutral-200 dark:border-neutral-700 font-mono text-[11px]">abc123xyz...</code>)
                 </label>
                 <input
                   type="text"
                   value={verificationCode}
                   onChange={(e) => setVerificationCode(e.target.value)}
                   placeholder="Paste your google-site-verification content string here..."
-                  className="w-full bg-white border border-neutral-300 rounded-xl px-4 py-2.5 text-sm font-medium focus:outline-hidden focus:ring-2 focus:ring-indigo-500 font-mono"
+                  className="w-full bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl px-4 py-2.5 text-sm font-medium text-neutral-900 dark:text-neutral-100 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 font-mono"
                 />
               </div>
 
               <div className="flex items-center justify-between pt-1">
-                <span className="text-xs text-emerald-600 font-semibold flex items-center gap-1">
+                <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
                   {savedCode ? <><Check className="w-3.5 h-3.5" /> Verified & Active</> : 'Awaiting verification code'}
                 </span>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-md transition-colors"
+                  className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold shadow-md transition-colors cursor-pointer"
                 >
                   Save & Inject Code
                 </button>
               </div>
 
               {savedSuccess && (
-                <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs font-semibold text-emerald-800 flex items-center gap-2">
+                <div className="p-3 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 rounded-xl text-xs font-semibold text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-600" />
                   <span>Google Search Console verification code saved & injected successfully!</span>
                 </div>
@@ -137,27 +137,27 @@ export function PublisherIndexingModal({ isOpen, onClose }: PublisherIndexingMod
           </div>
 
           {/* Step 2: Sitemap XML & Robots.txt for Indexing */}
-          <div className="bg-neutral-50 p-6 rounded-2xl border border-neutral-200 space-y-4">
-            <div className="flex items-center gap-2 text-neutral-900 font-bold text-base">
-              <FileCode className="w-5 h-5 text-indigo-600" />
+          <div className="bg-neutral-50 dark:bg-neutral-950 p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 space-y-4">
+            <div className="flex items-center gap-2 text-neutral-900 dark:text-neutral-100 font-bold text-base">
+              <FileCode className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               <span>2. Sitemap XML & Robots.txt (Rapid Indexing)</span>
             </div>
-            <p className="text-xs text-neutral-600 leading-relaxed">
+            <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
               Submit your auto-generated XML Sitemap to Google Search Console to index all 55+ font pages instantly.
             </p>
 
             <div className="space-y-3">
               {/* Sitemap URL */}
-              <div className="flex items-center justify-between bg-white border border-neutral-200 rounded-xl p-3">
+              <div className="flex items-center justify-between bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-3">
                 <div className="truncate pr-3">
-                  <span className="text-[10px] font-bold text-indigo-600 block uppercase tracking-wider">Sitemap XML URL</span>
-                  <a href={sitemapUrl} target="_blank" rel="noreferrer" className="text-xs font-mono text-neutral-800 hover:underline truncate block">
+                  <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 block uppercase tracking-wider">Sitemap XML URL</span>
+                  <a href={sitemapUrl} target="_blank" rel="noreferrer" className="text-xs font-mono text-neutral-800 dark:text-neutral-200 hover:underline truncate block">
                     {sitemapUrl}
                   </a>
                 </div>
                 <button
                   onClick={() => copyToClipboard(sitemapUrl, 'sitemap')}
-                  className="px-3 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors shrink-0"
+                  className="px-3 py-2 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors shrink-0 cursor-pointer"
                 >
                   {copiedSitemap ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedSitemap ? 'Copied' : 'Copy URL'}</span>
@@ -165,16 +165,16 @@ export function PublisherIndexingModal({ isOpen, onClose }: PublisherIndexingMod
               </div>
 
               {/* Robots.txt URL */}
-              <div className="flex items-center justify-between bg-white border border-neutral-200 rounded-xl p-3">
+              <div className="flex items-center justify-between bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl p-3">
                 <div className="truncate pr-3">
-                  <span className="text-[10px] font-bold text-indigo-600 block uppercase tracking-wider">Robots.txt URL</span>
-                  <a href={robotsUrl} target="_blank" rel="noreferrer" className="text-xs font-mono text-neutral-800 hover:underline truncate block">
+                  <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 block uppercase tracking-wider">Robots.txt URL</span>
+                  <a href={robotsUrl} target="_blank" rel="noreferrer" className="text-xs font-mono text-neutral-800 dark:text-neutral-200 hover:underline truncate block">
                     {robotsUrl}
                   </a>
                 </div>
                 <button
                   onClick={() => copyToClipboard(robotsUrl, 'robots')}
-                  className="px-3 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors shrink-0"
+                  className="px-3 py-2 bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors shrink-0 cursor-pointer"
                 >
                   {copiedRobots ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedRobots ? 'Copied' : 'Copy URL'}</span>
@@ -185,11 +185,11 @@ export function PublisherIndexingModal({ isOpen, onClose }: PublisherIndexingMod
         </div>
 
         {/* Footer */}
-        <div className="bg-neutral-100 px-6 py-4 border-t border-neutral-200 flex items-center justify-between text-xs text-neutral-600">
+        <div className="bg-neutral-100 dark:bg-neutral-950 px-6 py-4 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-400">
           <span>Fontora SEO & Indexing Assistant v2.5</span>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-neutral-900 text-white rounded-xl font-semibold hover:bg-indigo-600 transition-colors"
+            className="px-4 py-2 bg-neutral-900 dark:bg-neutral-800 text-white rounded-xl font-semibold hover:bg-indigo-600 transition-colors cursor-pointer"
           >
             Close Console
           </button>
