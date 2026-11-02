@@ -19,19 +19,27 @@ export function FontCard({
 }: FontCardProps) {
   const [downloaded, setDownloaded] = useState(false);
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onSelectFont(font);
+  };
+
   const handleDownloadClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault();
     setDownloaded(true);
     onDownload(font, e);
     setTimeout(() => setDownloaded(false), 2500);
   };
 
   const isRTL = font.language === 'Urdu' || font.language === 'Arabic';
+  const detailUrl = `/fonts/${font.slug}`;
 
   return (
-    <div
-      onClick={() => onSelectFont(font)}
-      className="group bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden cursor-pointer hover:border-indigo-200 dark:hover:border-indigo-500/50"
+    <a
+      href={detailUrl}
+      onClick={handleCardClick}
+      className="group bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200/90 dark:border-neutral-800 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden cursor-pointer hover:border-indigo-200 dark:hover:border-indigo-500/50 block text-left"
     >
       {/* Card Header */}
       <div className="p-4 pb-2.5 flex items-start justify-between gap-3 border-b border-neutral-100 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-900/80">
@@ -45,16 +53,9 @@ export function FontCard({
             </span>
           </div>
           <h3 className="font-bold text-neutral-900 dark:text-neutral-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors text-base">
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onSelectFont(font);
-              }}
-              className="text-left hover:underline cursor-pointer font-bold"
-            >
+            <span className="hover:underline font-bold">
               {font.name}
-            </button>
+            </span>
           </h3>
         </div>
 
@@ -89,18 +90,14 @@ export function FontCard({
       </div>
 
       {/* Card Footer */}
-      <div className="p-3.5 bg-white dark:bg-neutral-900 flex items-center justify-between gap-3">
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onSelectFont(font);
-          }}
+      <div className="p-3.5 bg-white dark:bg-neutral-900 flex items-center justify-between gap-3" onClick={(e) => e.stopPropagation()}>
+        <span
+          onClick={handleCardClick}
           className="flex items-center gap-1.5 text-xs font-semibold text-neutral-600 dark:text-neutral-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
         >
           <span>Preview & Details</span>
           <ArrowRight className="w-3.5 h-3.5" />
-        </button>
+        </span>
 
         <button
           type="button"
@@ -124,6 +121,6 @@ export function FontCard({
           )}
         </button>
       </div>
-    </div>
+    </a>
   );
 }

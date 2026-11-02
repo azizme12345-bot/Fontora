@@ -15,7 +15,7 @@ import { ContactView } from './views/ContactView';
 import { downloadFontFile } from './utils/downloadFont';
 
 function parseRouteFromUrl(): { route: string; font: Font | null; params?: { language?: string; category?: string } } {
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' || !window.location) {
     return { route: 'home', font: null };
   }
   const path = window.location.pathname.replace(/\/+$/, '') || '/';
@@ -80,10 +80,10 @@ function updateMetadata(route: string, font: Font | null) {
   if (route === 'font-detail' && font) {
     title = `${font.name} - Free Download & Live Preview | Fontora`;
     desc = `${font.description} Free download ${font.name} in ${font.fontFormat} format with interactive multi-script preview.`;
-    canonical = `${baseUrl}/fonts`;
+    canonical = `${baseUrl}/fonts/${font.slug}`;
   } else if (route === 'fonts') {
     title = 'All Fonts Directory - Urdu, Arabic, Hindi & English | Fontora';
-    desc = 'Browse 140+ verified open-source and community typefaces across Urdu, Arabic, Devanagari, and Latin scripts.';
+    desc = 'Browse 140+ open-source and community typefaces across Urdu, Arabic, Devanagari, and Latin scripts.';
     canonical = `${baseUrl}/fonts`;
   } else if (route === 'categories') {
     title = 'Font Categories - Nastaleeq, Naskh, Calligraphy & Display | Fontora';
@@ -119,7 +119,7 @@ function updateMetadata(route: string, font: Font | null) {
     canonical = `${baseUrl}/about`;
   } else if (route === 'privacy-policy') {
     title = 'Privacy Policy - Zero Tracking & Local Storage | Fontora';
-    desc = 'Read Fontora\'s transparent privacy policy: zero account registration, no tracking cookies, and local client storage.';
+    desc = 'Read Fontoras transparent privacy policy: zero account registration, no tracking cookies, and local client storage.';
     canonical = `${baseUrl}/privacy-policy`;
   } else if (route === 'contact') {
     title = 'Contact Us & Font Submissions | Fontora';
@@ -142,9 +142,13 @@ function updateMetadata(route: string, font: Font | null) {
   if (canonicalTag) canonicalTag.setAttribute('href', canonical);
 }
 
-export default function App() {
+interface AppProps {
+  initialRoute?: string;
+}
+
+export default function App({ initialRoute }: AppProps) {
   const initial = parseRouteFromUrl();
-  const [currentRoute, setCurrentRoute] = useState<string>(initial.route);
+  const [currentRoute, setCurrentRoute] = useState<string>(initialRoute || initial.route);
   const [routeParams, setRouteParams] = useState<{ language?: string; category?: string }>(initial.params || {});
   const [selectedFont, setSelectedFont] = useState<Font | null>(initial.font);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
@@ -154,6 +158,7 @@ export default function App() {
   // Favorites state with localStorage persistence
   const [favorites, setFavorites] = useState<string[]>(() => {
     try {
+      if (typeof window === 'undefined') return ['jameel-noori-nastaleeq', 'amiri-arabic', 'poppins-sans'];
       const saved = localStorage.getItem('fontora_favorites');
       return saved ? JSON.parse(saved) : ['jameel-noori-nastaleeq', 'amiri-arabic', 'poppins-sans'];
     } catch {
@@ -164,6 +169,7 @@ export default function App() {
   // Dark / Black mode state with localStorage persistence
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     try {
+      if (typeof window === 'undefined') return false;
       const saved = localStorage.getItem('fontora_dark_mode');
       return saved ? JSON.parse(saved) : false;
     } catch {
@@ -172,6 +178,7 @@ export default function App() {
   });
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     try {
       localStorage.setItem('fontora_dark_mode', JSON.stringify(darkMode));
       if (darkMode) {
@@ -190,6 +197,7 @@ export default function App() {
 
   // Handle URL changes & browser history back/forward
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const handlePopState = () => {
       const parsed = parseRouteFromUrl();
       setCurrentRoute(parsed.route);
@@ -206,6 +214,7 @@ export default function App() {
   }, [currentRoute, selectedFont]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     try {
       localStorage.setItem('fontora_favorites', JSON.stringify(favorites));
     } catch (err) {
@@ -215,6 +224,7 @@ export default function App() {
 
   // Keyboard shortcut for search (Cmd+K / Ctrl+K)
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
@@ -234,19 +244,28 @@ export default function App() {
       setRouteParams({});
     }
     const path = route === 'home' ? '/' : `/${route}`;
-    if (window.location.pathname !== path) {
+    if (typeof window !== 'undefined' && window.location.pathname !== path) {
       window.history.pushState({}, '', path);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleSelectFont = (font: Font) => {
     setSelectedFont(font);
     setCurrentRoute('font-detail');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const path = `/fonts/${font.slug}`;
+    if (typeof window !== 'undefined' && window.location.pathname !== path) {
+      window.history.pushState({}, '', path);
+    }
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleToggleFavorite = (fontId: string, e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     setFavorites((prev) => {
       const isFav = prev.includes(fontId);
@@ -257,7 +276,10 @@ export default function App() {
   };
 
   const handleDownloadFont = (font: Font, e?: React.MouseEvent) => {
-    if (e) e.stopPropagation();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     downloadFontFile(font, showToast);
   };
 
