@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Search, Heart, Menu, X, Sparkles, Globe, Flame, Sun, Moon } from 'lucide-react';
+import { Search, Heart, Menu, X, Sparkles, Flame, Sun, Moon } from 'lucide-react';
 
 interface HeaderProps {
   currentRoute: string;
   navigate: (route: string, params?: any) => void;
   favoritesCount: number;
   onOpenSearch: () => void;
-  onOpenPublisherConsole: () => void;
   darkMode: boolean;
   onToggleDarkMode: () => void;
 }
@@ -16,7 +15,6 @@ export function Header({
   navigate,
   favoritesCount,
   onOpenSearch,
-  onOpenPublisherConsole,
   darkMode,
   onToggleDarkMode,
 }: HeaderProps) {
@@ -152,15 +150,6 @@ export function Header({
               </span>
             )}
           </a>
-
-          <button
-            onClick={onOpenPublisherConsole}
-            className="hidden lg:flex items-center gap-1.5 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/85 dark:text-indigo-300 rounded-xl text-xs font-semibold transition-colors border border-indigo-200 dark:border-indigo-800 shadow-2xs cursor-pointer"
-            title="Search Console & Sitemap Assistant"
-          >
-            <Globe className="w-3.5 h-3.5" />
-            <span>Search Console</span>
-          </button>
 
           <button
             onClick={onOpenSearch}

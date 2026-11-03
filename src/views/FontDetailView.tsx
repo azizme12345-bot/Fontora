@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Font } from '../data/fonts';
 import { FontCard } from '../components/FontCard';
-import { Heart, Download, Copy, Check, ArrowLeft, ShieldCheck, User, FileText, HardDrive, Sparkles } from 'lucide-react';
+import { Heart, Download, Copy, Check, ArrowLeft, ShieldCheck, User, FileText, HardDrive } from 'lucide-react';
 
 interface FontDetailViewProps {
   font: Font;
@@ -117,7 +117,7 @@ export function FontDetailView({
         </div>
 
         {/* Font Metadata Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 sm:p-8 bg-neutral-50/70 border-b border-neutral-200">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 p-6 sm:p-8 bg-neutral-50/70 border-b border-neutral-200">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-white border border-neutral-200 flex items-center justify-center text-indigo-600 shadow-2xs">
               <User className="w-5 h-5" />
@@ -145,16 +145,6 @@ export function FontDetailView({
             <div>
               <div className="text-xs text-neutral-500 font-medium">File Size</div>
               <div className="text-sm font-bold text-neutral-900">{font.fileSize}</div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-white border border-neutral-200 flex items-center justify-center text-indigo-600 shadow-2xs">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="text-xs text-neutral-500 font-medium">Downloads</div>
-              <div className="text-sm font-bold text-neutral-900">{font.downloadCount.toLocaleString()}+</div>
             </div>
           </div>
         </div>
@@ -218,7 +208,7 @@ export function FontDetailView({
                 {font.license.toLowerCase().includes('sil open font license') ||
                 font.license.toLowerCase().includes('apache') ||
                 font.license.toLowerCase().includes('ubuntu')
-                  ? 'This typeface is cataloged under a verified open-source font license allowing personal and commercial use.'
+                  ? 'This typeface is listed under an open-source font license allowing personal and commercial use.'
                   : 'This typeface is provided for free personal and general evaluation. For corporate trademarks or large commercial distributions, please verify terms with the original designer or foundry.'}
               </p>
             </div>

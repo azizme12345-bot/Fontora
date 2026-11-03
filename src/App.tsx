@@ -3,7 +3,6 @@ import { FONTS_DATA, Font } from './data/fonts';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { SearchModal } from './components/SearchModal';
-import { PublisherIndexingModal } from './components/PublisherIndexingModal';
 import { HomeView } from './views/HomeView';
 import { FontsView } from './views/FontsView';
 import { CategoriesView } from './views/CategoriesView';
@@ -90,8 +89,8 @@ function updateMetadata(route: string, font: Font | null) {
     desc = 'Browse fonts categorized by artistic style: Nastaleeq, Naskh, Arabic Calligraphy, Serif, Sans-Serif, and Handwriting.';
     canonical = `${baseUrl}/categories`;
   } else if (route === 'popular-fonts') {
-    title = 'Popular Fonts - Most Downloaded Multilingual Typefaces | Fontora';
-    desc = 'Explore the highest rated, most popular Urdu Nastaleeq, Arabic, Hindi, and English fonts downloaded by designers worldwide.';
+    title = 'Popular Fonts - Multilingual Typefaces | Fontora';
+    desc = 'Explore popular Urdu Nastaleeq, Arabic, Hindi, and English fonts on Fontora.';
     canonical = `${baseUrl}/popular-fonts`;
   } else if (route === 'urdu-fonts') {
     title = 'Urdu Fonts - Download Free Jameel Noori Nastaleeq & Naskh | Fontora';
@@ -119,7 +118,7 @@ function updateMetadata(route: string, font: Font | null) {
     canonical = `${baseUrl}/about`;
   } else if (route === 'privacy-policy') {
     title = 'Privacy Policy - Zero Tracking & Local Storage | Fontora';
-    desc = 'Read Fontoras transparent privacy policy: zero account registration, no tracking cookies, and local client storage.';
+    desc = 'Read Fontora\'s transparent privacy policy: zero account registration, no tracking cookies, and local client storage.';
     canonical = `${baseUrl}/privacy-policy`;
   } else if (route === 'contact') {
     title = 'Contact Us & Font Submissions | Fontora';
@@ -152,7 +151,6 @@ export default function App({ initialRoute }: AppProps) {
   const [routeParams, setRouteParams] = useState<{ language?: string; category?: string }>(initial.params || {});
   const [selectedFont, setSelectedFont] = useState<Font | null>(initial.font);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-  const [isPublisherModalOpen, setIsPublisherModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Favorites state with localStorage persistence
@@ -308,7 +306,6 @@ export default function App({ initialRoute }: AppProps) {
         navigate={navigate}
         favoritesCount={favorites.length}
         onOpenSearch={() => setIsSearchModalOpen(true)}
-        onOpenPublisherConsole={() => setIsPublisherModalOpen(true)}
         darkMode={darkMode}
         onToggleDarkMode={toggleDarkMode}
       />
@@ -348,7 +345,7 @@ export default function App({ initialRoute }: AppProps) {
             onDownload={handleDownloadFont}
             popularOnly={true}
             pageTitle="Popular & Trending Fonts"
-            pageSubtitle="Explore our highest-rated, most downloaded multilingual typefaces."
+            pageSubtitle="Explore popular multilingual typefaces on Fontora."
           />
         )}
 
@@ -460,12 +457,6 @@ export default function App({ initialRoute }: AppProps) {
         onClose={() => setIsSearchModalOpen(false)}
         fonts={FONTS_DATA}
         onSelectFont={handleSelectFont}
-      />
-
-      {/* Publisher Indexing & Google Search Console Modal */}
-      <PublisherIndexingModal
-        isOpen={isPublisherModalOpen}
-        onClose={() => setIsPublisherModalOpen(false)}
       />
     </div>
   );

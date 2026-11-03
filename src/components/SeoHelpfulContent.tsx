@@ -8,10 +8,10 @@ export function SeoHelpfulContent() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
           <p>
-            Fontora is a curated typography platform built for graphic designers, digital publishers, and web creators. Delivering a responsive <strong>Modern Font Preview</strong> engine, a high-fidelity <strong>Unicode Font Converter</strong>, and a dynamic <strong>Stylish Text Generator</strong>, Fontora enables instant ligature and weight testing for Urdu Nastaleeq, Arabic, Hindi, English, and Roman Urdu fonts before direct one-click downloading.
+            Fontora is a curated typography platform built for graphic designers, digital publishers, and web creators. Delivering a responsive <strong>Modern Font Preview</strong> engine, a high-fidelity <strong>Unicode Font Toolkit</strong>, and a dynamic <strong>Text Customizer</strong>, Fontora enables instant ligature and weight testing for Urdu Nastaleeq, Arabic, Hindi, English, and Roman Urdu fonts before direct one-click downloading.
           </p>
           <p className="rtl text-right" dir="rtl">
-            فونٹورا گرافک ڈیزائنرز، پبلشرز اور ڈیجیٹل تخلیق کاروں کے لیے ایک جدید ٹائپوگرافی پلیٹ فارم ہے۔ یہاں آپ <strong>Modern Font Preview</strong>، طاقتور <strong>Unicode Font Converter</strong> اور <strong>Stylish Text Generator</strong> کے ذریعے اردو، عربی، ہندی، انگریزی اور رومن اردو فونٹس کو ڈاؤن لوڈ کرنے سے پہلے براہِ راست ٹیسٹ کر سکتے ہیں۔
+            فونٹورا گرافک ڈیزائنرز، پبلشرز اور ڈیجیٹل تخلیق کاروں کے لیے ایک جدید ٹائپوگرافی پلیٹ فارم ہے۔ یہاں آپ <strong>ٹائپوگرافی پریویو</strong>، طاقتور <strong>یونیکوڈ فونٹ ٹول کٹ</strong> اور <strong>ٹیکسٹ کسٹمائزر</strong> کے ذریعے اردو، عربی، ہندی، انگریزی اور رومن اردو فونٹس کو ڈاؤن لوڈ کرنے سے پہلے براہِ راست ٹیسٹ کر سکتے ہیں۔
           </p>
         </div>
       </div>
@@ -32,7 +32,7 @@ export function SeoHelpfulContent() {
           </div>
           <div className="bg-neutral-50 dark:bg-neutral-950 p-3.5 rounded-xl border border-neutral-200/80 dark:border-neutral-800">
             <span className="font-bold text-indigo-600 dark:text-indigo-400 block mb-1">3. Direct Download</span>
-            <p className="text-neutral-600 dark:text-neutral-400">Download verified TTF/OTF files with zero ads, redirects, or wait times.</p>
+            <p className="text-neutral-600 dark:text-neutral-400">Download TTF/OTF files with clean redirects and no wait times.</p>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@ export function SeoHelpfulContent() {
             </p>
           </div>
           <div className="bg-neutral-50 dark:bg-neutral-950 p-3.5 rounded-xl border border-neutral-200/80 dark:border-neutral-800">
-            <h4 className="font-bold text-neutral-900 dark:text-neutral-100 mb-1">2. Unicode Font Converter Accuracy?</h4>
+            <h4 className="font-bold text-neutral-900 dark:text-neutral-100 mb-1">2. Unicode Font Toolkit Accuracy?</h4>
             <p className="text-neutral-600 dark:text-neutral-400 text-xs">
               Our renderer handles full UTF-8 encoding without ligature fragmentation on Windows, macOS, iOS, and Android.
             </p>

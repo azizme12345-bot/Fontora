@@ -61,7 +61,7 @@ export function HomeView({
               >
                 <Search className="w-4 h-4 text-neutral-400 group-hover:text-indigo-600 transition-colors ml-1" />
                 <span className="text-neutral-400 dark:text-neutral-400 text-xs sm:text-sm flex-1 text-left">
-                  Search across 140+ verified typefaces...
+                  Search across 144 typefaces...
                 </span>
                 <kbd className="hidden sm:inline-block px-2 py-0.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-[10px] rounded border border-neutral-200 dark:border-neutral-700 font-mono">
                   ⌘K
@@ -131,7 +131,7 @@ export function HomeView({
               Featured Typefaces
             </h2>
             <p className="text-neutral-500 dark:text-neutral-400 text-xs">
-              Hand-picked verified fonts ready for instant preview and download
+              Hand-picked fonts ready for instant preview and download
             </p>
           </div>
           <button

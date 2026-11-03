@@ -41,12 +41,12 @@ export function AboutView() {
             <h2 className="text-xl font-bold">Font Licensing & Usage Policy</h2>
           </div>
           <p className="text-neutral-600 dark:text-neutral-400">
-            Fonts featured on Fontora originate from a variety of sources, including verified open-source repositories (such as the SIL Open Font License 1.1, Apache License 2.0, and Ubuntu Font License), educational projects, and community freeware releases.
+            Fonts featured on Fontora originate from a variety of sources, including open-source repositories (such as the SIL Open Font License 1.1, Apache License 2.0, and Ubuntu Font License), educational projects, and community freeware releases.
           </p>
           <div className="bg-neutral-50 dark:bg-neutral-950 rounded-2xl p-5 border border-neutral-200 dark:border-neutral-800 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
             <div className="flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-              <span><strong>Verified Open-Source Fonts:</strong> Free for personal and commercial usage according to their respective open licenses (e.g., SIL OFL, Apache 2.0).</span>
+              <span><strong>Open-Source Fonts:</strong> Free for personal and commercial usage according to their respective open licenses (e.g., SIL OFL, Apache 2.0).</span>
             </div>
             <div className="flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />

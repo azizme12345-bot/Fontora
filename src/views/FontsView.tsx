@@ -31,7 +31,7 @@ export function FontsView({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState<string>(initialLanguage);
   const [selectedCategory, setSelectedCategory] = useState<string>(initialCategory);
-  const [sortBy, setSortBy] = useState<'popularity' | 'downloads' | 'name'>('popularity');
+  const [sortBy, setSortBy] = useState<'popularity' | 'name'>('popularity');
 
   // Synchronize when initialLanguage changes (e.g. from routing)
   useEffect(() => {
@@ -68,7 +68,6 @@ export function FontsView({
         return matchesLang && matchesCat && matchesQuery;
       })
       .sort((a, b) => {
-        if (sortBy === 'downloads') return b.downloadCount - a.downloadCount;
         if (sortBy === 'name') return a.name.localeCompare(b.name);
         return b.popularity - a.popularity;
       });
@@ -90,7 +89,7 @@ export function FontsView({
   const currentSubtitle =
     pageSubtitle ||
     (popularOnly
-      ? 'The most downloaded and highly rated typefaces on Fontora.'
+      ? 'Popular typefaces on Fontora.'
       : `Browse our collection of ${filteredFonts.length} professional multilingual typefaces.`);
 
   return (
@@ -121,7 +120,6 @@ export function FontsView({
             className="bg-white border border-neutral-300 rounded-xl px-3 py-2 text-xs font-semibold text-neutral-800 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 cursor-pointer shadow-2xs"
           >
             <option value="popularity">Most Popular</option>
-            <option value="downloads">Highest Downloads</option>
             <option value="name">Alphabetical (A-Z)</option>
           </select>
         </div>
