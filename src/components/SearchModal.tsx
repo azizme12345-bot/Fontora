@@ -59,7 +59,7 @@ export function SearchModal({ isOpen, onClose, fonts, onSelectFont }: SearchModa
         </div>
 
         {/* Results List */}
-        <div className="max-h-[60vh] overflow-y-auto p-4 space-y-2">
+        <div className="h-[60vh] overflow-y-auto p-4 space-y-2">
           <div className="text-xs font-semibold text-neutral-400 dark:text-neutral-500 px-3 py-1 uppercase tracking-wider flex items-center justify-between">
             <span>{query.trim() === '' ? 'Popular Recommendations' : `Matching Results (${filteredFonts.length})`}</span>
             <span className="flex items-center gap-1 text-[10px] text-neutral-400">
@@ -95,7 +95,7 @@ export function SearchModal({ isOpen, onClose, fonts, onSelectFont }: SearchModa
                     {font.name}
                   </h4>
                   <p 
-                    className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-1" 
+                    className="text-sm text-neutral-600 dark:text-neutral-400 leading-loose" 
                     style={{ fontFamily: font.cssFontFamily }}
                   >
                     {font.previewText}

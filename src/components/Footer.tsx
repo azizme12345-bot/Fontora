@@ -153,6 +153,15 @@ export function Footer({ navigate }: FooterProps) {
               </li>
               <li>
                 <a 
+                  href="/terms" 
+                  onClick={(e) => { e.preventDefault(); navigate('terms'); }} 
+                  className="hover:text-white transition-colors"
+                >
+                  Terms of Use
+                </a>
+              </li>
+              <li>
+                <a 
                   href="/contact" 
                   onClick={(e) => { e.preventDefault(); navigate('contact'); }} 
                   className="hover:text-white transition-colors"

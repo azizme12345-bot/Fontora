@@ -10,6 +10,7 @@ import { FavoritesView } from './views/FavoritesView';
 import { FontDetailView } from './views/FontDetailView';
 import { AboutView } from './views/AboutView';
 import { PrivacyPolicyView } from './views/PrivacyPolicyView';
+import { TermsView } from './views/TermsView';
 import { ContactView } from './views/ContactView';
 import { downloadFontFile } from './utils/downloadFont';
 
@@ -51,6 +52,9 @@ function parseRouteFromUrl(): { route: string; font: Font | null; params?: { lan
   }
   if (path === '/privacy-policy') {
     return { route: 'privacy-policy', font: null };
+  }
+  if (path === '/terms') {
+    return { route: 'terms', font: null };
   }
   if (path === '/contact') {
     return { route: 'contact', font: null };
@@ -120,6 +124,10 @@ function updateMetadata(route: string, font: Font | null) {
     title = 'Privacy Policy - Zero Tracking & Local Storage | Fontora';
     desc = 'Read Fontora\'s transparent privacy policy: zero account registration, no tracking cookies, and local client storage.';
     canonical = `${baseUrl}/privacy-policy`;
+  } else if (route === 'terms') {
+    title = 'Terms of Use | Fontora';
+    desc = 'Read the Fontora terms of use, including font license rules, website use, and copyright requests.';
+    canonical = `${baseUrl}/terms`;
   } else if (route === 'contact') {
     title = 'Contact Us & Font Submissions | Fontora';
     desc = 'Get in touch with Fontora for font submissions, designer attribution updates, DMCA inquiries, or feedback.';
@@ -432,6 +440,8 @@ export default function App({ initialRoute }: AppProps) {
         {currentRoute === 'about' && <AboutView />}
 
         {currentRoute === 'privacy-policy' && <PrivacyPolicyView />}
+
+        {currentRoute === 'terms' && <TermsView />}
 
         {currentRoute === 'contact' && <ContactView />}
 

@@ -191,7 +191,7 @@ export function FontDetailView({
               style={{
                 fontFamily: font.cssFontFamily,
                 fontSize: `${fontSize}px`,
-                lineHeight: 1.6,
+                lineHeight: 2.2,
               }}
               dir={isRTL ? 'rtl' : 'ltr'}
             >

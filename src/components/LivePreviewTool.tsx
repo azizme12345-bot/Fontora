@@ -198,7 +198,7 @@ export function LivePreviewTool({ fonts, selectedFontId, onSelectFont, onDownloa
       </div>
 
       {/* Compact Live Display Pane */}
-      <div className="p-6 bg-white dark:bg-neutral-950 min-h-[110px] max-h-[180px] flex items-center justify-center overflow-x-auto relative">
+      <div className="p-6 bg-white dark:bg-neutral-950 min-h-[140px] flex items-center justify-center overflow-x-auto relative">
         <div
           className={`w-full text-neutral-900 dark:text-neutral-100 transition-all ${
             textAlign === 'left' ? 'text-left' : textAlign === 'right' ? 'text-right' : 'text-center'
@@ -208,7 +208,7 @@ export function LivePreviewTool({ fonts, selectedFontId, onSelectFont, onDownloa
             fontSize: `${fontSize}px`,
             fontWeight: isBold ? 700 : 400,
             letterSpacing: `${letterSpacing}px`,
-            lineHeight: 1.4,
+            lineHeight: 2.2,
           }}
           dir={isRTL ? 'rtl' : 'ltr'}
         >

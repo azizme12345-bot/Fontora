@@ -19,6 +19,7 @@ export const CORE_PAGES = [
   { path: 'roman-urdu-fonts', title: 'Roman Urdu Fonts - Stylish Social Media Typography | Fontora', desc: 'Aesthetic, bold, and modern typography tailored for Roman Urdu quotes, Instagram reels, and YouTube thumbnails.', priority: '0.8', changefreq: 'weekly' },
   { path: 'about', title: 'About Us - Fontora Multilingual Typography Platform', desc: 'Learn about the Fontora platform, our mission to elevate non-Latin typography, and our open-source licensing standards.', priority: '0.7', changefreq: 'monthly' },
   { path: 'privacy-policy', title: 'Privacy Policy - Zero Tracking & Local Storage | Fontora', desc: "Read Fontora's transparent privacy policy: zero account registration, no tracking cookies, and local client storage.", priority: '0.6', changefreq: 'monthly' },
+  { path: 'terms', title: 'Terms of Use | Fontora', desc: 'Read the Fontora terms of use, including font license rules, website use, and copyright requests.', priority: '0.5', changefreq: 'monthly' },
   { path: 'contact', title: 'Contact Us & Font Submissions | Fontora', desc: 'Get in touch with Fontora for font submissions, designer attribution updates, DMCA inquiries, or feedback.', priority: '0.7', changefreq: 'monthly' },
   { path: 'favorites', title: 'My Saved Fonts - Fontora Collection', desc: 'View and test your saved collection of favorite Urdu, Arabic, and English typefaces.', priority: '0.5', changefreq: 'weekly' }
 ];
@@ -93,7 +94,7 @@ if (fs.existsSync(distDir)) {
           if (selector === 'metaproperty="og:title"' || selector === 'meta[property="og:title"]') {
             return { setAttribute: (k, v) => { capturedTitle = v; } };
           }
-          if (selector === 'meta[property="og:description"]') {
+          if (selector === 'meta property="og:description"' || selector === 'meta[property="og:description"]') {
             return { setAttribute: (k, v) => { capturedDesc = v; } };
           }
           if (selector === 'link[rel="canonical"]') {

@@ -74,9 +74,9 @@ export function FontCard({
       </div>
 
       {/* Font Live Preview Box */}
-      <div className="p-5 bg-white dark:bg-neutral-950 flex-1 flex flex-col justify-center min-h-[110px] max-h-[150px] overflow-hidden relative border-b border-neutral-100 dark:border-neutral-800">
+      <div className="px-5 pt-6 pb-8 bg-white dark:bg-neutral-950 flex-1 flex flex-col justify-center min-h-[140px] relative border-b border-neutral-100 dark:border-neutral-800">
         <div
-          className={`text-xl sm:text-2xl text-neutral-800 dark:text-neutral-100 transition-all leading-relaxed line-clamp-2 ${
+          className={`text-xl sm:text-2xl text-neutral-800 dark:text-neutral-100 transition-all leading-[2.2] ${
             isRTL ? 'text-right' : 'text-left'
           }`}
           dir={isRTL ? 'rtl' : 'ltr'}
