@@ -16,7 +16,7 @@ export function PrivacyPolicyView() {
           At Fontora, we are committed to providing a clean, safe, and transparent font discovery experience with zero unnecessary data collection.
         </p>
         <p className="text-xs text-neutral-400">
-          Last Updated: October 2026 • Effective Worldwide
+          Last Updated: November 2026 • Effective Worldwide
         </p>
       </div>
 
@@ -91,6 +91,19 @@ export function PrivacyPolicyView() {
           </div>
           <p className="text-sm sm:text-base text-neutral-600">
             Fontora is an open educational and creative tool for typography discovery. We do not knowingly collect personal identifiable information from children or adults alike.
+          </p>
+        </div>
+
+        {/* Section 6: Advertising */}
+        <div className="bg-white p-8 rounded-3xl border border-neutral-200/90 shadow-xs space-y-4">
+          <div className="flex items-center gap-3 text-neutral-900">
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+              <FileText className="w-5 h-5" />
+            </div>
+            <h2 className="text-xl font-bold">6. Advertising</h2>
+          </div>
+          <p className="text-sm sm:text-base text-neutral-600">
+            Fontora does not currently show third-party advertisements. If we add advertising in the future, this policy will be updated before any ads are shown. It will explain which advertising providers are used, which cookies they set, and how you can control them. For example, you can manage ad personalization at https://adssettings.google.com and opt out of third-party ad cookies at https://www.aboutads.info/choices/.
           </p>
         </div>
       </div>
