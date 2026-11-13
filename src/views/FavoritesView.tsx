@@ -35,6 +35,9 @@ export function FavoritesView({
           <p className="text-neutral-600 text-sm mt-1">
             Access your bookmarked typefaces instantly. Saved locally in your browser session.
           </p>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl mt-3">
+            Fonts you saved with the heart button. Your favorites are stored in your own browser, not on a server, so they stay on this device and are not shared with anyone. Clearing your browser data will remove them.
+          </p>
         </div>
 
         {favoriteFonts.length > 0 && (

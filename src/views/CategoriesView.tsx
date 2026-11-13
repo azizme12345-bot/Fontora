@@ -18,6 +18,9 @@ export function CategoriesView({ fonts, navigate }: CategoriesViewProps) {
         <p className="text-neutral-600 text-sm mt-1">
           Explore our structured library categorized by linguistic scripts and aesthetic design styles.
         </p>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl mt-3">
+          Fonts grouped by style, such as Nastaleeq, Naskh, Calligraphy, Serif, Sans-Serif, and Handwriting. Choose the style you need first, then pick a font inside that group. This makes it easier to compare fonts that serve the same purpose.
+        </p>
       </div>
 
       {/* Language sections */}

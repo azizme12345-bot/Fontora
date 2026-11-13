@@ -13,6 +13,7 @@ interface FontsViewProps {
   initialCategory?: string;
   pageTitle?: string;
   pageSubtitle?: string;
+  pageDetail?: string;
   popularOnly?: boolean;
 }
 
@@ -26,6 +27,7 @@ export function FontsView({
   initialCategory = 'All',
   pageTitle,
   pageSubtitle,
+  pageDetail,
   popularOnly = false,
 }: FontsViewProps) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -107,6 +109,9 @@ export function FontsView({
           <p className="text-neutral-600 text-sm mt-1">
             {currentSubtitle}
           </p>
+          {pageDetail && (
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-3xl mt-3">{pageDetail}</p>
+          )}
         </div>
 
         {/* Sort dropdown */}

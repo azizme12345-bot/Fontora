@@ -341,6 +341,7 @@ export default function App({ initialRoute }: AppProps) {
             onDownload={handleDownloadFont}
             initialLanguage={routeParams.language || 'All'}
             initialCategory={routeParams.category || 'All'}
+            pageDetail="Browse all Urdu, Arabic, Hindi, English, and Roman Urdu fonts on Fontora in one place. Search by name or filter by script, then open any font to preview it with your own text. Each font page shows its license, designer, and file format, so you can check before you download the TTF or OTF file. Read the license before using a font in a commercial project."
           />
         )}
 
@@ -354,6 +355,7 @@ export default function App({ initialRoute }: AppProps) {
             popularOnly={true}
             pageTitle="Popular & Trending Fonts"
             pageSubtitle="Explore popular multilingual typefaces on Fontora."
+            pageDetail="A selection of typefaces across Urdu, Arabic, Hindi, and English. If you are not sure which font to pick, begin here: open a few fonts and preview each one with the sentence you plan to use."
           />
         )}
 
@@ -367,6 +369,7 @@ export default function App({ initialRoute }: AppProps) {
             initialLanguage="Urdu"
             pageTitle="Urdu Fonts Collection"
             pageSubtitle="Free download authentic Nastaleeq, Naskh, and Urdu calligraphic typefaces."
+            pageDetail="Nastaleeq, Naskh, and calligraphy fonts for Urdu text. Nastaleeq fonts suit poetry, quotes, and headings, while Naskh fonts are better for longer reading text. Preview each font with a full Urdu sentence, because letter shapes and joins look different from one font to another."
           />
         )}
 
@@ -380,6 +383,7 @@ export default function App({ initialRoute }: AppProps) {
             initialLanguage="Arabic"
             pageTitle="Arabic Fonts Directory"
             pageSubtitle="Discover Quranic, classic calligraphy, and modern Arabic display typefaces."
+            pageDetail="Arabic fonts for Quranic text, classical calligraphy, and modern design, including display and sans-serif styles. They work well for posters, book covers, and websites. Test each font with your own Arabic text, because diacritics and joins can differ, and check the license before commercial use."
           />
         )}
 
@@ -393,6 +397,7 @@ export default function App({ initialRoute }: AppProps) {
             initialLanguage="Hindi"
             pageTitle="Hindi & Devanagari Fonts"
             pageSubtitle="Classical and contemporary Devanagari typography for websites and print."
+            pageDetail="Devanagari fonts for Hindi text in websites, print, posters, and branding. Conjuncts and matras look different in each font, so test with a full Hindi line before you choose. Classical fonts suit books and formal documents, while contemporary fonts suit headings and ads."
           />
         )}
 
@@ -406,6 +411,7 @@ export default function App({ initialRoute }: AppProps) {
             initialLanguage="English"
             pageTitle="English Typefaces Library"
             pageSubtitle="High legibility Serif, Sans-Serif, Monospace, and Display typography."
+            pageDetail="Serif, sans-serif, monospace, and display fonts for English text. Use a clean sans-serif for interface text, a serif for long reading, a monospace font for code, and a display font for headlines. Preview each font at the size you plan to use, because a font can look different at small sizes."
           />
         )}
 
@@ -419,6 +425,7 @@ export default function App({ initialRoute }: AppProps) {
             initialLanguage="Roman Urdu"
             pageTitle="Roman Urdu Typography"
             pageSubtitle="Punchy, stylish typefaces designed for modern social media posts and reels."
+            pageDetail="Bold and stylish fonts for Roman Urdu quotes, Instagram posts, reels, and YouTube thumbnails. These fonts suit short lines that need to stand out. Check how the text looks on a phone screen, and test with your own words before you design the final post."
           />
         )}
 
